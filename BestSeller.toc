@@ -1,0 +1,30 @@
+## Interface: 40300
+## Title: Best Seller
+## Author: Smashed @ US Bladefist
+## Version: 4.3.0.00
+## Notes: Sell your stuff the easy way
+## DefaultState: Enabled
+## LoadOnDemand: 0
+## SavedVariables: BestSellerDatabase
+## X-Curse-Packaged-Version: 4.3.0
+## X-Curse-Project-Name: Best Seller
+## X-Curse-Project-ID: jelly
+## X-Curse-Repository-ID: wow/jelly/mainline
+## X-Curse-Packaged-Version: 4.3.0.0
+## X-Curse-Project-Name: Best Seller
+## X-Curse-Project-ID: jelly
+## X-Curse-Repository-ID: wow/jelly/mainline
+BestSellerFrame.xml
+BestSeller.lua
+BestSellerAutoBuy.lua
+BestSellerEvents.lua
+BestSellerAutoSell.lua
+BestSellerCommandHandler.lua
+BestSellerHelp.lua
+BestSellerOptions.lua
+BestSellerStacker.lua
+BestSeller.xml
+
+
+
+
