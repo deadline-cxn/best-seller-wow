@@ -740,64 +740,6 @@
             <DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled" />
           </CheckButton>
 
-
-
-		<CheckButton name="$parentCheckHideMinimapIcon">
-            <Size>
-              <AbsDimension x="32" y="32" />
-            </Size>
-            <Anchors>
-              <Anchor point="TOPLEFT">
-                <Offset>
-                  <AbsDimension x="240" y="-19" />
-                </Offset>
-              </Anchor>
-            </Anchors>
-            <Layers>
-              <Layer>
-                <FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Hide Minimap Icon">
-                  <Anchors>
-                    <Anchor point="LEFT" relativePoint="RIGHT">
-                      <Offset>
-                        <AbsDimension x="-2" y="0" />
-                      </Offset>
-                    </Anchor>
-                  </Anchors>
-                  <FontHeight>
-                    <AbsValue val="10" />
-                  </FontHeight>
-                  <Color r="1" g="0.8196079" b="0" />
-                  <Shadow>
-                    <Color r="0" g="0" b="0" />
-                    <Offset>
-                      <AbsDimension x="1" y="-1" />
-                    </Offset>
-                  </Shadow>
-                </FontString>
-              </Layer>
-            </Layers>
-            <Scripts>
-                <OnClick>
-				if(db.HideMinimapIcon==nil) then db.HideMinimapIcon={}; end
-                db.HideMinimapIcon["Hide"]=self:GetChecked();
-                if(db.HideMinimapIcon["Hide"]) then
-                    bsInform("Minimap Icon now turned on - you can get to the options by typing /bestseller");
-					BSMMButton:Hide();
-                else
-                    bsInform("Minimap Icon now turned off - you can get to the options by typing /bestseller");
-					BSMMButton:Show();
-                end
-                </OnClick>
-            </Scripts>
-            <NormalTexture file="Interface\Buttons\UI-CheckBox-Up" />
-            <PushedTexture file="Interface\Buttons\UI-CheckBox-Down" />
-            <HighlightTexture file="Interface\Buttons\UI-CheckBox-Highlight" alphaMode="ADD" />
-            <CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
-            <DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled" />
-          </CheckButton>
-
-
-
           <CheckButton name="$parentCheckSafe">
             <Size>
               <AbsDimension x="24" y="24" />

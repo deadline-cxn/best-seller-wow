@@ -67,6 +67,10 @@ function bsOnEvent(self, event, ...)
 
             if(db.Count==nil)                   then db.Count = {}; end
 
+
+			--if(db.HideMinimapIcon==nil)		 	 then db.HideMinimapIcon = {}; end
+			--if(db.HideMinimapIcon["Hide"]==nil) then db.HideMinimapIcon["Hide"]=0; end
+
 	    end
 
         rpxpmsg=1;
@@ -82,6 +86,14 @@ function bsOnEvent(self, event, ...)
         BSAMFramePanel1CheckAddMem:SetChecked(db.AutoSell["AddASL"]);
         BSAMFramePanel1CheckDetail:SetChecked(db.AutoSell["Detail"]);
         BSAMFramePanel1CheckLowFoods:SetChecked(db.AutoSell["LowFoods"]);
+
+
+        --- minimap button
+		BSMMButton:SetPoint("CENTER", "UIParent", "BOTTOMLEFT", (db.MMX or 512), (db.MMY or 384));
+
+		BSAMFramePanel1CheckHideMinimapIcon:SetChecked(db.HideMinimapIcon["Hide"]);
+		if(db.HideMinimapIcon["Hide"]==1) then BSMMButton:Hide(); end
+
 
         --- soulbound stuff
         BSAMFramePanel1CheckSoulbound:SetChecked(db.AutoSell["Soulbound"]);
@@ -115,8 +127,6 @@ function bsOnEvent(self, event, ...)
             BSAMFramePanel3ComboReputationText:SetText(FACTION_STANDING[db.RepairReputation]);
         end
 
-        --- minimap button
-		BSMMButton:SetPoint("CENTER", "UIParent", "BOTTOMLEFT", (db.MMX or 512), (db.MMY or 384));
 
 		--- debug chat frame
         db.bsChatFrame=DEFAULT_CHAT_FRAME;
