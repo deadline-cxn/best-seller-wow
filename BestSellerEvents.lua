@@ -68,8 +68,8 @@ function bsOnEvent(self, event, ...)
             if(db.Count==nil)                   then db.Count = {}; end
 
 
-			--if(db.HideMinimapIcon==nil)		 	 then db.HideMinimapIcon = {}; end
-			--if(db.HideMinimapIcon["Hide"]==nil) then db.HideMinimapIcon["Hide"]=0; end
+			if(db.HideMinimapIcon==nil)		 	 then db.HideMinimapIcon = {}; end
+			if(db.HideMinimapIcon["Hide"]==nil) then db.HideMinimapIcon["Hide"]=0; end
 
 	    end
 
