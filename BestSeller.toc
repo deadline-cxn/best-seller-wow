@@ -1,16 +1,16 @@
 ## Interface: 40300
 ## Title: Best Seller
 ## Author: Smashed @ US Bladefist
-## Version: 4.3.0.00
+## Version: 4.3.0.1
 ## Notes: Sell your stuff the easy way
 ## DefaultState: Enabled
 ## LoadOnDemand: 0
 ## SavedVariables: BestSellerDatabase
-## X-Curse-Packaged-Version: 4.3.0
+## X-Curse-Packaged-Version: 4.3.0.1
 ## X-Curse-Project-Name: Best Seller
 ## X-Curse-Project-ID: jelly
 ## X-Curse-Repository-ID: wow/jelly/mainline
-## X-Curse-Packaged-Version: 4.3.0.0
+## X-Curse-Packaged-Version: 4.3.0.1
 ## X-Curse-Project-Name: Best Seller
 ## X-Curse-Project-ID: jelly
 ## X-Curse-Repository-ID: wow/jelly/mainline
