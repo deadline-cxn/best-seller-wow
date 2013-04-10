@@ -76,7 +76,7 @@ function bsOnEvent(self, event, ...)
         rpxpmsg=1;
         rpxpsession=0;
 
-        bsPrint(RFCC.."BestSeller ["..bsVersion.."] by Smashed (Bladefist - Alliance) loaded. For help type "..YFCC.."/bs help");
+        bsPrint(RFCC.."BestSeller >> "..YFCC.."["..bsVersion.."] by Smashed (Bladefist - Alliance) loaded. For help type "..YFCC.."/bs help");
 
         --- autosell stuff
         BSAMFramePanel1CheckAutoSell:SetChecked(db.AutoSell["Active"]);
@@ -185,7 +185,7 @@ function bsOnEvent(self, event, ...)
 
 	if (event == "QUEST_PROGRESS") then
 
---[[	if(db.QuestComplete==1) then
+	--[[ if(db.QuestComplete==1) then
 
 		local complete_button= _G["QuestFrameCompleteQuestButton"];
 			if(complete_button) then
@@ -198,7 +198,7 @@ function bsOnEvent(self, event, ...)
 
     if (event=="QUEST_COMPLETE") then
 
-		bsInform("Hi there");
+		 -- bsInform("Hi there");
 
 		local high, high_index = 0, 0
 		local getlink=nil;
@@ -283,6 +283,11 @@ function bsOnEvent(self, event, ...)
     if (event == "MERCHANT_SHOW") then
 
         local whatfact=bsTargetFaction();
+		
+		if(whatfact==nil) then whatfact=0; end
+		if(db.ReputationRepair==nil) then db.ReputationRepair=0; end
+		
+		
         local dorepair=1;
         bMerchantOpen=1;
 

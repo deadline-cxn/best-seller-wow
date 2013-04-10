@@ -117,7 +117,8 @@ function bsAutoSell()
 
                 itemCount=GetItemCount(name);
 
-                itemName,
+                local 
+				itemName,
                 itemLink,
                 itemRarity,
                 itemLevelReq,
@@ -130,237 +131,240 @@ function bsAutoSell()
                 itemSellPrice
                 = GetItemInfo(name);
 
+				if(itemType==nil) then itemType="unknown"; end
+				if(itemSubType==nil) then itemSubType="none"; end				
 
-				-- bsInform("ITEM:"..name.." -> type:"..itemType.." -> subtype:"..itemSubType);
+				
+
+				if(itemSellPrice==nil) then itemSellPrice=0; end
+				bsDPrint("ITEM:"..name.." -> type:"..itemType.." -> subtype:"..itemSubType.." -> "..itemSellPrice);
+				
+			
+				if(itemSellPrice==0) then itemSellPrice=nil; end
+			
+				if (itemSellPrice ~= nil )  then 
+
+					BSTooltip:ClearLines();
+				
+					local thname, thlink = GetItemInfo(name);
+									
+					BSTooltip:SetHyperlink(thlink);-- GetLink(name));
+
+					for floi=1, BSTooltip:NumLines(),1 do
+						local amtext=getglobal("BSTooltipTextLeft" .. floi);
+						for tiLevel in string.gmatch(amtext:GetText(), "Item Level (.+)") do
+							iLevel=tiLevel;
+						end
+						if(string.find(amtext:GetText(),"Recipe:")) then
+							bIsRecipe=1;
+						end
+						if(string.find(amtext:GetText(),"well fed")) then
+							bHasFoodBuf=1;
+						end
+						if(amtext:GetText()=="Binds when picked up") then
+							if(floi==2) then
+								bIsSoulbound=1;
+							end
+						end
+					end
+
+					if(bIsRecipe==1) then
+						bHasFoodBuf=0;
+					end
+
+					bIsQuestItem=0;
+					if (itemType=="Quest") or
+					   (bsIsQuestItem(itemName)==1) then
+						bIsQuestItem=1;
+					end
+
+					if(db.AutoSell["Safe"]==1) then
+						if(safecount>11) then
+							d1msg="SAFE MODE: Sold 12 items and now stopping";
+							bAutoSellActive=0;
+							return
+						end
+					end
+
+					exclude=0; -- exclude table will over ride "Items" to sell
+					thiswildcard="";
+					for item,_ in pairs (db.AutoSell["Exclude"]) do
+						for what in string.gmatch(item, "(.+)*") do
+							if(what~=nil) then
+								-- bsDPrint("wildcard=["..what.."]");
+								wildcard=what;
+								if(string.find(itemName,wildcard)) then
+									thiswildcard=wildcard;
+									exclude=1;
+								end
+							end
+						end
+					end
+
+					for item,_ in pairs (db.AutoSell["Exclude"]) do
+						if(itemName==item) then
+							exclude=1;
+						end
+					end
+
+					thiswildcard="";
+					for item,_ in pairs (BS_DO_NOT_SELL) do
+						for what in string.gmatch(item, "(.+)*") do
+							if(what~=nil) then
+
+								-- bsDPrint("wildcard=["..what.."]");
+
+								wildcard=what;
+								if(string.find(itemName,wildcard)) then
+									thiswildcard=wildcard;
+									d1msg="";
+									d2msg=OFCC..itemName..JFCC.." (hard exclude table)"..RFCC.." (not sold)";
+									exclude=1;
+								end
+							end
+						end
+					end
+
+					for item,_ in pairs (BS_DO_NOT_SELL) do
+						if(itemName==item) then
+							d1msg="";
+							d2msg=OFCC..itemName..JFCC.." (hard exclude table)"..RFCC.." (not sold)";
+							exclude=1;
+						end
+					end
 
 
-                BSTooltip:ClearLines();
-                BSTooltip:SetHyperlink(name);
-
-                for floi=1, BSTooltip:NumLines(),1 do
-                    local amtext=getglobal("BSTooltipTextLeft" .. floi);
-                    for tiLevel in string.gmatch(amtext:GetText(), "Item Level (.+)") do
-                        iLevel=tiLevel;
-                    end
-                    if(string.find(amtext:GetText(),"Recipe:")) then
-                        bIsRecipe=1;
-                    end
-                    if(string.find(amtext:GetText(),"well fed")) then
-                        bHasFoodBuf=1;
-                    end
-                    if(amtext:GetText()=="Binds when picked up") then
-                        if(floi==2) then
-                            bIsSoulbound=1;
-                        end
-                    end
-                end
-
-                if(bIsRecipe==1) then
-                    bHasFoodBuf=0;
-                end
-
-                bIsQuestItem=0;
-                if (itemType=="Quest") or
-                   (bsIsQuestItem(itemName)==1) then
-                    bIsQuestItem=1;
-                end
-
-                if(db.AutoSell["Safe"]==1) then
-                    if(safecount>11) then
-                        d1msg="SAFE MODE: Sold 12 items and now stopping";
-                        bAutoSellActive=0;
-                        return
-                    end
-                end
-
-                exclude=0; -- exclude table will over ride "Items" to sell
-                thiswildcard="";
-                for item,_ in pairs (db.AutoSell["Exclude"]) do
-                    for what in string.gmatch(item, "(.+)*") do
-                        if(what~=nil) then
-                            -- bsDPrint("wildcard=["..what.."]");
-                            wildcard=what;
-                            if(string.find(itemName,wildcard)) then
-                                thiswildcard=wildcard;
-                                exclude=1;
-                            end
-                        end
-                    end
-                end
-
-                for item,_ in pairs (db.AutoSell["Exclude"]) do
-                    if(itemName==item) then
-                        exclude=1;
-                    end
-                end
 
 
+					-- bsDPrint(itemName.." Item rarity:"..itemRarity.." setting:"..db.AutoSell["SoulboundQuality"]);
+					if(exclude==1) then
+						if(thiswildcard~="") then
+							thiswildcard=" (wildcard "..thiswildcard..")";
+						end
+						d2msg=OFCC..itemName..PFCC.." "..thiswildcard.." (found in exclude list) "..RFCC.."(not sold) ";
+					else
 
+						if(bIsQuestItem==1) then
+							if(itemType=="Quest") then
+								d2msg=OFCC..itemName..GFCC.." (quest item) "..RFCC.."(not sold)";
+							else
+								d1msg=OFCC..itemName..GFCC.." (item needed for quest) "..RFCC.."(not sold)";
+							end
+						elseif (itemSellPrice==0) then
+							d2msg=OFCC..itemName..BFCC.." (no sell price)"..RFCC.." (not sold)";
+						else
+							wildcard="";
+							if (itemRarity==0) then -- Sell Grey Items but exclude specific items
+								bDoSell=1;
+							else
+								if(db.AutoSell["GreyOnly"]~=1) then
+									if(db.AutoSell["Remember"]==1) then
+										for item,_ in pairs (db.AutoSell["Items"]) do
+											wildcard="";
+											for what in string.gmatch(item,"(.+)*") do
+												if(what~=nil) then
+													wildcard=what
+												end
+											end
+											if(wildcard~="") then
+												if(string.find(itemName,wildcard)) then
+													d1msg="Sold: "..itemName.. " because it is in your Auto Sell List (wildcard "..wildcard..")";
+													bDoSell=1;
+												end
+											end
+										end
+										for item,_ in pairs (db.AutoSell["Items"]) do
+											if( itemName == item) then
+												d1msg="Sold: "..item.. " because it is in your Auto Sell List";
+												bDoSell=1;
+											end
+										end
+									end
 
+									if(db.AutoSell["Soulbound"]==1) then
+										if(bIsSoulbound==1) then
+											if(tonumber(iLevel)     >     tonumber(db.AutoSell["SoulboundLow"])) then
+												if(tonumber(iLevel) <     tonumber(db.AutoSell["SoulboundHigh"])) then
+													if(itemRarity<=db.AutoSell["SoulboundQuality"]) then
+														d1msg="Sold: "..OFCC..itemName..YFCC.." because it is soulbound between level "..
+															db.AutoSell["SoulboundLow"].." and "..db.AutoSell["SoulboundHigh"];
+														bDoSell=1;
+													end
+												end
+											end
+										end
+									end
 
+									if(db.AutoSell["LowFoods"]==1) then
+										ifoodrange=UnitLevel("player")-itemMinLevel;
+										isfood=0;
+										for wtf in string.gmatch(itemSubType,"Food(.+)") do
+											isfood=1;
+										end
+										if(isfood==1) then
+											dofood=0;
+											if  (itemMinLevel==70) or
+												(itemMinLevel==60) then
+												if (ifoodrange>5) then
+													dofood=1;
+												end
+											else
+												if (ifoodrange>10) then
+													dofood=1;
+												end
+											end
+											if(dofood==1) then
+												if(bHasFoodBuf==0) then
+													d1msg="Sold: "..OFCC..itemName..YFCC.." (outleveled food or drink item)";
+													bDoSell=1;
+												else
+													if(db.AutoSell["BufFoods"]==1) then
+														bDoSell=1;
+														d1msg="Sold: "..OFCC..itemName..YFCC.." (outleveled food or drink item with buf)";
+													else
+														d2msg=OFCC..itemName..JFCC.." (buff food)"..RFCC.." (not sold)";
+													end
+												end
+											end
+										end
+									end
+								end
+							end
+						end
+					end
+				end
 
+				if
+					(itemType=="Trade Goods") or
+					(itemType=="Gem") or
+					(itemType=="Quest") or
+					(itemType=="Recipe") or
+					(itemType=="Consumable")
+				then
+					d1msg="";
+					d2msg=OFCC..itemName..JFCC.." (excluded item based on type)"..RFCC.." (not sold)";
+					bDoSell=0;
+				end
 
+				if(bDoSell==1) then
+					bsRecentAutoSold[itemName]=1;
+					UseContainerItem(bag,slot);
+					itotalgold=itotalgold+(itemSellPrice*itemCount);
+					safecount=safecount+1;
+				end
 
+				if(db.AutoSell["Detail"]==1) then
+					if(d1msg~="") then bsInform(d1msg); end
+					if(db.AutoSell["DetailAll"]==1) then
+						if(bDoSell==0) then
+							if(d2msg~="") then bsInform(d2msg); end
+						end
+					end
+				end
 
-
-
-                thiswildcard="";
-                for item,_ in pairs (BS_DO_NOT_SELL) do
-                    for what in string.gmatch(item, "(.+)*") do
-                        if(what~=nil) then
-
-							-- bsDPrint("wildcard=["..what.."]");
-
-                            wildcard=what;
-                            if(string.find(itemName,wildcard)) then
-                                thiswildcard=wildcard;
-								d1msg="";
-								d2msg=OFCC..itemName..JFCC.." (hard exclude table)"..RFCC.." (not sold)";
-                                exclude=1;
-                            end
-                        end
-                    end
-                end
-
-                for item,_ in pairs (BS_DO_NOT_SELL) do
-                    if(itemName==item) then
-						d1msg="";
-						d2msg=OFCC..itemName..JFCC.." (hard exclude table)"..RFCC.." (not sold)";
-                        exclude=1;
-                    end
-                end
-
-
-
-
-                -- bsDPrint(itemName.." Item rarity:"..itemRarity.." setting:"..db.AutoSell["SoulboundQuality"]);
-                if(exclude==1) then
-                    if(thiswildcard~="") then
-                        thiswildcard=" (wildcard "..thiswildcard..")";
-                    end
-                    d2msg=OFCC..itemName..PFCC.." "..thiswildcard.." (found in exclude list) "..RFCC.."(not sold) ";
-                else
-
-                    if(bIsQuestItem==1) then
-                        if(itemType=="Quest") then
-                            d2msg=OFCC..itemName..GFCC.." (quest item) "..RFCC.."(not sold)";
-                        else
-                            d1msg=OFCC..itemName..GFCC.." (item needed for quest) "..RFCC.."(not sold)";
-                        end
-                    elseif (itemSellPrice==0) then
-                        d2msg=OFCC..itemName..BFCC.." (no sell price)"..RFCC.." (not sold)";
-                    else
-                        wildcard="";
-                        if (itemRarity==0) then -- Sell Grey Items but exclude specific items
-                            bDoSell=1;
-                        else
-                            if(db.AutoSell["GreyOnly"]~=1) then
-                                if(db.AutoSell["Remember"]==1) then
-                                    for item,_ in pairs (db.AutoSell["Items"]) do
-                                        wildcard="";
-                                        for what in string.gmatch(item,"(.+)*") do
-                                            if(what~=nil) then
-                                                wildcard=what
-                                            end
-                                        end
-                                        if(wildcard~="") then
-                                            if(string.find(itemName,wildcard)) then
-                                                d1msg="Sold: "..itemName.. " because it is in your Auto Sell List (wildcard "..wildcard..")";
-                                                bDoSell=1;
-                                            end
-                                        end
-                                    end
-                                    for item,_ in pairs (db.AutoSell["Items"]) do
-                                        if( itemName == item) then
-                                            d1msg="Sold: "..item.. " because it is in your Auto Sell List";
-                                            bDoSell=1;
-                                        end
-                                    end
-                                end
-
-                                if(db.AutoSell["Soulbound"]==1) then
-                                    if(bIsSoulbound==1) then
-                                        if(tonumber(iLevel)     >     tonumber(db.AutoSell["SoulboundLow"])) then
-                                            if(tonumber(iLevel) <     tonumber(db.AutoSell["SoulboundHigh"])) then
-                                                if(itemRarity<=db.AutoSell["SoulboundQuality"]) then
-                                                    d1msg="Sold: "..OFCC..itemName..YFCC.." because it is soulbound between level "..
-                                                        db.AutoSell["SoulboundLow"].." and "..db.AutoSell["SoulboundHigh"];
-                                                    bDoSell=1;
-                                                end
-                                            end
-                                        end
-                                    end
-                                end
-
-                                if(db.AutoSell["LowFoods"]==1) then
-                                    ifoodrange=UnitLevel("player")-itemMinLevel;
-                                    isfood=0;
-                                    for wtf in string.gmatch(itemSubType,"Food(.+)") do
-                                        isfood=1;
-                                    end
-                                    if(isfood==1) then
-                                        dofood=0;
-                                        if  (itemMinLevel==70) or
-                                            (itemMinLevel==60) then
-                                            if (ifoodrange>5) then
-                                                dofood=1;
-                                            end
-                                        else
-                                            if (ifoodrange>10) then
-                                                dofood=1;
-                                            end
-                                        end
-                                        if(dofood==1) then
-                                            if(bHasFoodBuf==0) then
-                                                d1msg="Sold: "..OFCC..itemName..YFCC.." (outleveled food or drink item)";
-                                                bDoSell=1;
-                                            else
-                                                if(db.AutoSell["BufFoods"]==1) then
-                                                    bDoSell=1;
-                                                    d1msg="Sold: "..OFCC..itemName..YFCC.." (outleveled food or drink item with buf)";
-                                                else
-                                                    d2msg=OFCC..itemName..JFCC.." (buff food)"..RFCC.." (not sold)";
-                                                end
-                                            end
-                                        end
-                                    end
-                                end
-                            end
-                        end
-                    end
-                end
-            end
-
-			if
-				(itemType=="Trade Goods") or
-				(itemType=="Gem") or
-				(itemType=="Quest") or
-				(itemType=="Recipe") or
-				(itemType=="Consumable")
-			then
-				d1msg="";
-				d2msg=OFCC..itemName..JFCC.." (excluded item based on type)"..RFCC.." (not sold)";
-				bDoSell=0;
 			end
-
-            if(bDoSell==1) then
-                bsRecentAutoSold[itemName]=1;
-                UseContainerItem(bag,slot);
-                itotalgold=itotalgold+(itemSellPrice*itemCount);
-                safecount=safecount+1;
-            end
-
-            if(db.AutoSell["Detail"]==1) then
-                if(d1msg~="") then bsInform(d1msg); end
-                if(db.AutoSell["DetailAll"]==1) then
-                    if(bDoSell==0) then
-                        if(d2msg~="") then bsInform(d2msg); end
-                    end
-                end
-            end
-
-        end
-    end
+		end
+	end
 
 	if (itotalgold>0) then
         bsInform("Total money earned for auto selling items "..GetCoinText(itotalgold));

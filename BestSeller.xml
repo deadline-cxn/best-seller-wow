@@ -1,4 +1,4 @@
-﻿<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
 <Script file="BestSeller.lua"/>
 
@@ -63,7 +63,8 @@
         </OnClick>
         <OnLoad>
             BSMMButton.tooltipText = "Best Seller "..bsVersion.."|r|nLeft Click for Options |r|nShift-Right Click to move";
-            BSMMButton:RegisterForClicks("LeftButtonUp"); </OnLoad>
+            BSMMButton:RegisterForClicks("LeftButtonUp");
+			</OnLoad>
         <OnEnter>
             GameTooltip:SetOwner(BSMMButton, "ANCHOR_LEFT");
             GameTooltip:SetText(BSMMButton.tooltipText);
