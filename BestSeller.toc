@@ -1,7 +1,7 @@
-## Interface: 50200
+## Interface: 60000
 ## Title: Best Seller
 ## Author: Smashed @ US Bladefist
-## Version: 5.2.0
+## Version: 6.0.3
 ## Notes: Sell your stuff the easy way
 ## DefaultState: Enabled
 ## LoadOnDemand: 0
