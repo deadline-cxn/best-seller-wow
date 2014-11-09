@@ -1,0 +1,23 @@
+=== Latest version: 6.0.0.0 ====
+Updated for 6.0 patch
+=== Latest version: 5.1.0.0 ====
+Updated for 5.1 patch
+=== 5.0.5.1: ===
+Removed annoying debug information.
+=== 5.0.5 ===
+Fixed some stuff that MoP broke, and / or I broke.
+=== Features ===
+* Safe selling mode sells only 12 items at a time
+* Editable sell list, just enter the name of any item that you want to automatically sell (enter wildcards in the format: word*)
+* Editable exclude list, just enter the name of any item that you wish to not sell automatically (enter wildcards in the format: word*)
+* Sell soulbound items between a determined low item level and high item level
+* Sell only grey items mode. This will override all other filters and only sell grey items.
+* Sell food & drink items that you have out-leveled; ie; ice cold milk, with option to sell food items with "well fed" buff
+* Auto buy "Best Buy" with editable buy listing (enter wildcards in the format: word*)
+* Auto repair all of your items, using either your own funds or your guilds funds (requires guild funding access)
+* Auto repair merchant reputation check
+* Detailed information on what sold and what did not sell and the reasons why. You can turn this on or off.
+* Auto select the highest value quest rewards
+* Auto complete quests, with option to not complete if the reward items are higher iLevel than what you currently have equipped
+* Optionally remember what you sell to vendors manually so next time it will sell it automatically
+* Hard coded DO NOT SELL list
