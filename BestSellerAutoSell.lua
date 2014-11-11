@@ -102,13 +102,10 @@ function bsAutoSell()
 -- bag loop
     for bag = 0,4,1 do
         for slot = 1, GetContainerNumSlots(bag), 1 do
-
             d1msg="";
             d2msg="";
-
             local name = GetContainerItemLink(bag,slot);
             if(name~=nil) then
-
                 bDoSell=0;
                 bIsQuestItem=0;
                 bIsSoulbound=0;
@@ -134,12 +131,9 @@ function bsAutoSell()
 				if(itemType==nil) then itemType="unknown"; end
 				if(itemSubType==nil) then itemSubType="none"; end				
 
-				
-
 				if(itemSellPrice==nil) then itemSellPrice=0; end
 				bsDPrint("ITEM:"..name.." -> type:"..itemType.." -> subtype:"..itemSubType.." -> "..itemSellPrice);
-				
-			
+
 				if(itemSellPrice==0) then itemSellPrice=nil; end
 			
 				if (itemSellPrice ~= nil )  then 
@@ -232,9 +226,6 @@ function bsAutoSell()
 							exclude=1;
 						end
 					end
-
-
-
 
 					-- bsDPrint(itemName.." Item rarity:"..itemRarity.." setting:"..db.AutoSell["SoulboundQuality"]);
 					if(exclude==1) then

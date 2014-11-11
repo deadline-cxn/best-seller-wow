@@ -1,12 +1,6 @@
-
 function bsAutoBuy()
-
-
     if(db.AutoBuy["Active"]~=1) then return; end
-
-
-local
-					itemName,
+	local			itemName,
                     itemLink,
                     itemRarity,
                     itemLevelReq,

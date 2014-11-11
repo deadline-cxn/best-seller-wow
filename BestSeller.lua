@@ -1,47 +1,10 @@
---[[    Filename: BestSeller.lua
-
-        Author  : Smashed - Bladefist
-]]--
--- Set up some global stuff
+--[[    Filename: BestSeller.lua Author  : Smashed - Bladefist ]]--
 
 bsVersion = "v"..GetAddOnMetadata("BestSeller", "Version");
 
 bAutoSellActive=0;
 bMerchantOpen=0;
 iLastItemSold=0;
-
-RFCC="|cffff2020";
-JFCC="|cfff0f090";
-PFCC="|cffff20ff";
-WFCC="|cffffffff";
-NFCC="|cffffd200";
-DFCC="|cff888888";
-GFCC="|cff00ff00";
-BFCC="|cff0000ff";
-YFCC="|cffffff00";
-OFCC="|cffff9900";
-
-ITEM_QUALITY = {};
-ITEM_QUALITY[0] = "|cff9d9d9dPoor";
-ITEM_QUALITY[1] = "|cffffffffCommon";
-ITEM_QUALITY[2] = "|cff1eff00Uncommon";
-ITEM_QUALITY[3] = "|cff0070ffRare";
-ITEM_QUALITY[4] = "|cffa335eeEpic";
-ITEM_QUALITY[5] = "|cffff8000Legendary";
-ITEM_QUALITY[6] = "|cffff0000Artifact";
-ITEM_QUALITY[7] = "|cfe6cc80Heirloom";
-
-FACTION_STANDING = {};
-FACTION_STANDING[0] = "|cffcc0000(can't determine)";
-FACTION_STANDING[1] = "|cffcc0000Hated";
-FACTION_STANDING[2] = "|cffff0000Hostile";
-FACTION_STANDING[3] = "|cfff26000Unfriendly";
-FACTION_STANDING[4] = "|cffe4e400Neutral";
-FACTION_STANDING[5] = "|cff33ff33Friendly";
-FACTION_STANDING[6] = "|cff5fe65dHonored";
-FACTION_STANDING[7] = "|cff53e9bcRevered";
-FACTION_STANDING[8] = "|cff2ee6e6Exalted";
-FACTION_STANDING[9] = "|cffcc0000(can't determine)";
 
 BS_ITEM_SLOT = {};
 BS_ITEM_SLOT[0]="HeadSlot"
