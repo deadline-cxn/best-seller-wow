@@ -200,12 +200,8 @@ function bsOnEvent(self, event, ...)
   end
   if (event == "MERCHANT_SHOW") then
 	local whatfact=bsTargetFaction()
-	if(whatfact==nil) then
-	  whatfact=0
-	end
-	if(db.ReputationRepair==nil) then
-	  db.ReputationRepair=0
-	end
+	if(whatfact==nil) then whatfact=0; end
+	if(db.ReputationRepair==nil) then db.ReputationRepair=0; end
 	local dorepair=1
 	bMerchantOpen=1
 	bAutoSellActive=1

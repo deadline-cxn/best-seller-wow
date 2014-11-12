@@ -539,9 +539,9 @@
 			  <OnClick>
 				db.AutoBuy["Active"]=self:GetChecked();
 				if(db.AutoBuy["Active"]==1) then
-				sml_print("BestSeller","Auto Buy now turned on");
+				  sml_print("BestSeller","Auto Buy now turned on");
 				else
-				sml_print("BestSeller","Auto Buy now turned off");
+				  sml_print("BestSeller","Auto Buy now turned off");
 				end
 			  </OnClick>
 			</Scripts>
@@ -726,9 +726,9 @@
 				end;
 				db.AutoSell["Active"]=self:GetChecked();
 				if(db.AutoSell["Active"]) then
-				sml_print("BestSeller","Auto Sell now turned on");
+				  sml_print("BestSeller","Auto Sell now turned on");
 				else
-				sml_print("BestSeller","Auto Sell now turned off");
+				  sml_print("BestSeller","Auto Sell now turned off");
 				end
 			  </OnClick>
 			</Scripts>

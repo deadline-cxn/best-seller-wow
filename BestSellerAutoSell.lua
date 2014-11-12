@@ -63,13 +63,9 @@ BS_DO_NOT_SELL={
 }
 
 function bsAutoSell()
-  if(db.AutoSell==nil) then
-	return
-  end
-  if(db.AutoSell["Active"]~=1) then
-	return
-  end
-  local itemName,itemLink,itemRarity,itemLevelReq,itemMinLevel,itemType,itemSubType,itemStackCount,itemEquipLoc,itemTexture,itemSellPrice
+  if(db.AutoSell==nil) then return; end
+  if(db.AutoSell["Active"]==false) then return; end
+  -- local itemName,itemLink,itemRarity,itemLevelReq,itemMinLevel,itemType,itemSubType,itemStackCount,itemEquipLoc,itemTexture,itemSellPrice
   local exclude=0
   local floi=0
   local isfood=0
@@ -91,6 +87,7 @@ function bsAutoSell()
   local d2msg=""
   local exclude
   local thiswildcard
+
   for bag = 0,4,1 do
 	for slot = 1, GetContainerNumSlots(bag), 1 do
 	  d1msg=""
@@ -315,6 +312,9 @@ function bsAutoSell()
 	  end
 	end
   end
+
+  sml_print("BestSeller","bsAutoSell() 3");
+
   if (itotalgold>0) then
 	sml_print("BestSeller","Total money earned for auto selling items "..GetCoinText(itotalgold))
   end

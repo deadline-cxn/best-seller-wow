@@ -1,6 +1,6 @@
 -- Best Seller Command Line Input Handler
 function bsCommandHandler(self,msg)
-  narg,numarg=bsNargify(msg)
+  narg,numarg=sml_nargify(msg)
   sml_dprint(db.Debug,"BestSeller","msg=["..msg.."]")
   sml_dprint(db.Debug,"BestSeller","Number of args: "..tostring(narg))
   if(narg[0] == "testmoney" ) then
