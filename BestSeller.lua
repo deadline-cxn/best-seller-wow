@@ -1,6 +1,6 @@
 --[[    Filename: BestSeller.lua Author  : Smashed - Bladefist ]]--
 bsVersion = "v"..GetAddOnMetadata("BestSeller", "Version")
-bAutoSellActive=0 
+bAutoSellActive=0
 bMerchantOpen=0
 iLastItemSold=0
 BS_ITEM_SLOT = {}
@@ -110,18 +110,18 @@ function bsTargetFaction()
   if(fname==nil) then
 	fname="?"
   end
-  sml_dprint("TARGET FACTION CHECK:")
-  sml_dprint("Target faction "..faction..","..fname)
+  sml_dprint(db.Debug,"BestSeller","TARGET FACTION CHECK:")
+  sml_dprint(db.Debug,"BestSeller","Target faction "..faction..","..fname)
   BSTooltip:ClearLines()
   BSTooltip:SetUnit("target")
   for floi=1, BSTooltip:NumLines(),1 do
 	local amtext=getglobal("BSTooltipTextLeft" .. floi)
-	sml_dprint(amtext:GetText())
+	sml_dprint(db.Debug,"BestSeller",amtext:GetText())
 	for factionIndex = 1, GetNumFactions() do
 	  name,description,standingId,bottomValue,topValue,earnedValue,atWarWith,canToggleAtWar,isHeader,isCollapsed,hasRep,isWatched,isChild=GetFactionInfo(factionIndex)
 	  if isHeader == nil then
 		if(string.find(amtext:GetText(),name)) then
-		  sml_dprint("Target Faction: " .. name .. " ("..FACTION_STANDING[standingId]..")")
+		  sml_dprint(db.Debug,"BestSeller","Target Faction: " .. name .. " ("..FACTION_STANDING[standingId]..")")
 		  return standingId
 		end
 	  end
@@ -131,7 +131,7 @@ function bsTargetFaction()
 end
 function printSubClasses(...)
   for class = 1, select("#", ...) do
-	sml_dprint(select(class, ...).. ":", strjoin(", ", GetAuctionItemSubClasses(class)))
+	sml_dprint(db.Debug,"BestSeller", select(class, ...).. ":", strjoin(", ", GetAuctionItemSubClasses(class)))
   end
 end
 function bsCompareItem(xitem)
@@ -145,9 +145,9 @@ function bsCompareItem(xitem)
   if(itemEquipLoc==nil) then
 	itemEquipLoc=0
   end
-  sml_dprint("COMPARING ITEM: "..itemName.." (ilevel:"..itemiLevel..") (equipslot:"..BS_ITEM_SLOT[itemEquipLoc]..")")
+  sml_dprint(db.Debug,"BestSeller","COMPARING ITEM: "..itemName.." (ilevel:"..itemiLevel..") (equipslot:"..BS_ITEM_SLOT[itemEquipLoc]..")")
   local charitem=GetInventoryItemLink("player", itemEquipLoc)
   local item2Name,item2Link,item2Rarity,item2iLevel,item2MinLevel,item2Type,item2SubType,item2StackCount,item2EquipLoc,item2Texture,item2SellPrice=GetItemInfo(charitem)
-  sml_dprint("The equipped item for that slot is (ilevel:"..item2iLevel..")")
+  sml_dprint(db.Debug,"BestSeller","The equipped item for that slot is (ilevel:"..item2iLevel..")")
 end
 ---[EOF]

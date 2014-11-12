@@ -1,8 +1,8 @@
 -- Best Seller Command Line Input Handler
 function bsCommandHandler(self,msg)
   narg,numarg=bsNargify(msg)
-  sml_dprint("msg=["..msg.."]")
-  sml_dprint("Number of args: "..tostring(narg))
+  sml_dprint(db.Debug,"BestSeller","msg=["..msg.."]")
+  sml_dprint(db.Debug,"BestSeller","Number of args: "..tostring(narg))
   if(narg[0] == "testmoney" ) then
 	sml_print(format("I have %d gold %d silver %d copper.", bsGetGold(), bsGetSilver(), bsGetCopper() ) )
   end
@@ -14,12 +14,12 @@ function bsCommandHandler(self,msg)
 	BSAMFrame:Hide()
   end
   if(narg[0] == "minishow" ) then
-	sml_inform("Showing mini map button.")
+	sml_print("BestSeller","Showing mini map button.")
 	BSMMButton:Show()
   end
   if(narg[0] == "minihide" ) then
 
-	sml_inform("Hiding mini map button.")
+	sml_print("BestSeller","Hiding mini map button.")
 	BSMMButton:Hide()
   end
   if(narg[0] == "minireset" ) then
@@ -34,17 +34,17 @@ function bsCommandHandler(self,msg)
   end
   if (narg[0] == "hoverframeinfo") or (msg=="hfi") then
 	local curframe=GetMouseFocus():GetName()
-	sml_inform(curframe)
+	sml_print("BestSeller",curframe)
   end
   if(narg[0] == "who") then
 	SendWho('80')
 	SortWho('Guild')
 	numWhos, totalCount = GetNumWhoResults()
-	sml_dprint(numWhos.." "..totalCount)
+	sml_dprint(db.Debug,"BestSeller",numWhos.." "..totalCount)
   end
   if(narg[0] == "ssz") then
 	local az=MinimapZoneTextButton:GetName()
-	sml_dprint(az)
+	sml_dprint(db.Debug,"BestSeller",az)
   end
   if(narg[0] == "debug" ) then
 	bsToggle_Debug()
@@ -58,8 +58,8 @@ function bsCommandHandler(self,msg)
   end
 
   if(narg[0] == "abl") then
-	sml_inform("Auto buy list:")
-	sml_inform("=====================================================")
+	sml_print("BestSeller","Auto buy list:")
+	sml_print("BestSeller","=====================================================")
 	bsABList()
   end
   if(narg[0] == "ict") then
@@ -111,7 +111,7 @@ function bsCommandHandler(self,msg)
   if(narg[0] == "asexadd") then
 	for what in string.gmatch(msg, "asexadd (.+)") do
 	  if(what~=nil) then
-		sml_dprint("what=["..what.."]")
+		sml_dprint(db.Debug,"BestSeller","what=["..what.."]")
 	  end
 	end
 	db.AutoSell["Exclude"][narg[1]]=true

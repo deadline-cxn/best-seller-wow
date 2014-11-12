@@ -1,5 +1,5 @@
 ----------------------------------------------------------------
-function JGoBag(bag) 
+function JGoBag(bag)
   if (bag==0) then PutItemInBackpack() end
   if (bag==1) then PutItemInBag(20) end
   if (bag==2) then PutItemInBag(21) end
@@ -72,7 +72,7 @@ function JRestack()
 	  end
 	end
   end
-  sml_print("restacked your items.")
+  sml_print("BestSeller","restacked your items.")
   return false;
 end
 

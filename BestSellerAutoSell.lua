@@ -113,7 +113,7 @@ function bsAutoSell()
 		if(itemSellPrice==nil) then
 		  itemSellPrice=0
 		end
-		sml_dprint("ITEM:"..name.." -> type:"..itemType.." -> subtype:"..itemSubType.." -> "..itemSellPrice)
+		sml_dprint(db.Debug,"BestSeller","ITEM:"..name.." -> type:"..itemType.." -> subtype:"..itemSubType.." -> "..itemSellPrice)
 		if(itemSellPrice==0) then
 		  itemSellPrice=nil
 		end
@@ -302,13 +302,13 @@ function bsAutoSell()
 		end
 		if(db.AutoSell["Detail"]==1) then
 		  if(d1msg~="") then
-			sml_inform(d1msg)
+			sml_print("BestSeller",d1msg)
 		  end
 		end
 		if(db.AutoSell["DetailAll"]==1) then
 		  if(bDoSell==0) then
 			if(d2msg~="") then
-			  sml_inform(d2msg)
+			  sml_print("BestSeller",d2msg)
 			end
 		  end
 		end
@@ -316,7 +316,7 @@ function bsAutoSell()
 	end
   end
   if (itotalgold>0) then
-	sml_inform("Total money earned for auto selling items "..GetCoinText(itotalgold))
+	sml_print("BestSeller","Total money earned for auto selling items "..GetCoinText(itotalgold))
   end
 end
 function bsWasAutoSold(item)
@@ -331,7 +331,7 @@ function bsWasAutoSold(item)
 end
 function bsIsQuestItem(bsitem)
   local numEntries, numQuests = GetNumQuestLogEntries()
-  sml_dprint("isQuestItem: numEntries:"..numEntries.." numQuests:"..numQuests)
+  sml_dprint(db.Debug,"BestSeller","isQuestItem: numEntries:"..numEntries.." numQuests:"..numQuests)
   for bsqu=1,numQuests do
 	bsnlb=GetNumQuestLeaderBoards(bsqu)
 	for bslb=1,bsnlb do
@@ -348,9 +348,9 @@ function bsIsQuestItem(bsitem)
 		  fin="(bsfin nil)"
 		end
 		for bsit,_ in string.gmatch(bstxt,"(.+):(.+)") do
-		  sml_dprint("QUEST ITEM >> "..bsitem.." <<"..bsit.." "..bstyp)
+		  sml_dprint(db.Debug,"BestSeller","QUEST ITEM >> "..bsitem.." <<"..bsit.." "..bstyp)
 		  if(bsitem==bsit) then
-			sml_dprint("QUEST ITEM >> "..bsitem.." <<"..bsit.." << A MATCH!")
+			sml_dprint(db.Debug,"BestSeller","QUEST ITEM >> "..bsitem.." <<"..bsit.." << A MATCH!")
 			return 1
 		  end
 		end
@@ -367,7 +367,7 @@ function bsSellOneItem(name)
 end
 function bsRemoveSellItem(itemName)
   if(db.AutoSell["Items"][itemName]~=nil) then
-	sml_inform("Removed ["..itemName.."] from sell list")
+	sml_print("BestSeller","Removed ["..itemName.."] from sell list")
 	db.AutoSell["Items"][itemName]=nil
   end
 end
@@ -377,7 +377,7 @@ function bsAddSellItem(inlink)
 	if(itemRarity>0) then
 	  if(db.AutoSell["Items"][itemName]==1) then
 	  else
-		sml_inform("Added ["..itemName.."] to sell list")
+		sml_print("BestSeller","Added ["..itemName.."] to sell list")
 		db.AutoSell["Items"][itemName] = 1
 	  end
 	end
@@ -385,17 +385,17 @@ function bsAddSellItem(inlink)
 end
 function bsRemoveExcludeItem(itemName)
   if(db.AutoSell["Exclude"][itemName]~=nil) then
-	sml_inform("Removed ["..itemName.."] from sell EXCLUDE list")
+	sml_print("BestSeller","Removed ["..itemName.."] from sell EXCLUDE list")
 	db.AutoSell["Exclude"][itemName]=nil
   end
 end
 function bsAddExcludeItem(inlink)
   if(inlink~=nil) then
 	local itemName, itemLink, itemRarity, itemLevelReq, itemType, itemSubType, itemStackCount = GetItemInfo(inlink)
-	sml_dprint("ITEM EXCLUDE: "..itemName)
+	sml_dprint(db.Debug,"BestSeller","ITEM EXCLUDE: "..itemName)
 	if(db.AutoSell["Exclude"][itemName]==1) then
 	else
-	  sml_inform("Added ["..itemName.."] to EXCLUDE list")
+	  sml_print("BestSeller","Added ["..itemName.."] to EXCLUDE list")
 	  db.AutoSell["Exclude"][itemName] = 1
 	end
   end
@@ -418,20 +418,20 @@ function bsASLPopulate()
   for index = 1,23 do
 	getglobal("BSASLSF_ItemButton"..index):Hide()
   end
-  sml_dprint("ASL Pop")
+  sml_dprint(db.Debug,"BestSeller","ASL Pop")
   BSASLSF.RealResultsSize=bsASLGetNumItems()
   BSASLFrameTitleText:SetText("Auto Sell List "..BSASLSF.RealResultsSize.." items")
   FauxScrollFrame_Update(BSASLSF,BSASLSF.RealResultsSize-1,22,16)
-  sml_dprint("BSASLSF.RealResultsSize ["..BSASLSF.RealResultsSize.."]")
+  sml_dprint(db.Debug,"BestSeller","BSASLSF.RealResultsSize ["..BSASLSF.RealResultsSize.."]")
   local offset = BSASLSF.offset
-  sml_dprint("BSASLSF.offset="..offset)
+  sml_dprint(db.Debug,"BestSeller","BSASLSF.offset="..offset)
   local index=1
   local grof=0
   for bsaslitem,astable in pairs (db.AutoSell["Items"]) do
 	if(grof<offset) then
 	  grof=grof+1
 	else
-	  sml_dprint("BSASLSF_ItemButton"..index.." RESULT :"..bsaslitem)
+	  sml_dprint(db.Debug,"BestSeller","BSASLSF_ItemButton"..index.." RESULT :"..bsaslitem)
 	  local zbutton=getglobal("BSASLSF_ItemButton"..index)
 	  if(zbutton~=nil) then
 		zwhat=getglobal("BSASLSF_ItemButton"..index.."_Text")
@@ -440,7 +440,7 @@ function bsASLPopulate()
 		index=index+1
 		zbutton:Show()
 	  else
-		sml_dprint("ERROR: zbutton==nil BestSellerAutoSell.lua 443")
+		sml_dprint(db.Debug,"BestSeller","ERROR: zbutton==nil BestSellerAutoSell.lua 443")
 	  end
 	end
   end
@@ -459,14 +459,14 @@ function bsASLGetNumItems()
   return numitems
 end
 function bsASLButtonPressed(index)
-  sml_dprint("Auto Sell List "..index)
+  sml_dprint(db.Debug,"BestSeller","Auto Sell List "..index)
   bsRemoveSellItem(index)
   bsASLPopulate()
 end
 function bsASLEditBoxAdd()
   if(BSASLFrameAddItemBox:GetText()~="") then
 	db.AutoSell["Items"][BSASLFrameAddItemBox:GetText()] = 1
-	sml_inform("Added "..BSASLFrameAddItemBox:GetText().." to auto sell list")
+	sml_print("BestSeller","Added "..BSASLFrameAddItemBox:GetText().." to auto sell list")
 	bsASLPopulate()
 	BSASLFrameAddItemBox:SetText("")
 	BSASLFrameAddItemBox:ClearFocus()
@@ -493,20 +493,20 @@ function bsEXLPopulate()
 	  what:Hide()
 	end
   end
-  sml_dprint("EXL Pop")
+  sml_dprint(db.Debug,"BestSeller","EXL Pop")
   BSEXLSF.RealResultsSize=bsEXLGetNumItems()
   BSEXLFrameTitleText:SetText("Auto Sell Exclude List "..BSEXLSF.RealResultsSize.." items")
   FauxScrollFrame_Update(BSEXLSF,BSEXLSF.RealResultsSize-1,22,16)
-  sml_dprint("BSEXLSF.RealResultsSize ["..BSEXLSF.RealResultsSize.."]")
+  sml_dprint(db.Debug,"BestSeller","BSEXLSF.RealResultsSize ["..BSEXLSF.RealResultsSize.."]")
   local offset = BSEXLSF.offset
-  sml_dprint("BSEXLSF.offset="..offset)
+  sml_dprint(db.Debug,"BestSeller","BSEXLSF.offset="..offset)
   local index=1
   local grof=0
   for bsaslitem,astable in pairs (db.AutoSell["Exclude"]) do
 	if(grof<offset) then
 	  grof=grof+1
 	else
-	  sml_dprint("BSEXLSF_ItemButton"..index.." RESULT :"..bsaslitem)
+	  sml_dprint(db.Debug,"BestSeller","BSEXLSF_ItemButton"..index.." RESULT :"..bsaslitem)
 	  local zbutton=getglobal("BSEXLSF_ItemButton"..index)
 	  if(zbutton~=nil) then
 		zwhat=getglobal("BSEXLSF_ItemButton"..index.."_Text")
@@ -515,7 +515,7 @@ function bsEXLPopulate()
 		index=index+1
 		zbutton:Show()
 	  else
-		sml_dprint("ERROR: zbutton==nil BestSellerAutoSell.lua Line 518")
+		sml_dprint(db.Debug,"BestSeller","ERROR: zbutton==nil BestSellerAutoSell.lua Line 518")
 	  end
 	end
   end
@@ -528,14 +528,14 @@ function bsEXLGetNumItems()
   return numitems
 end
 function bsEXLButtonPressed(index)
-  sml_dprint("Exclude List "..index)
+  sml_dprint(db.Debug,"BestSeller","Exclude List "..index)
   bsRemoveExcludeItem(index)
   bsEXLPopulate()
 end
 function bsEXLEditBoxAdd()
   if(BSEXLFrameAddItemBox:GetText()~="") then
 	db.AutoSell["Exclude"][BSEXLFrameAddItemBox:GetText()] = 1
-	sml_inform("Added "..BSEXLFrameAddItemBox:GetText().." to exclude list")
+	sml_print("BestSeller","Added "..BSEXLFrameAddItemBox:GetText().." to exclude list")
 	bsEXLPopulate()
 	BSEXLFrameAddItemBox:SetText("")
 	BSEXLFrameAddItemBox:ClearFocus()

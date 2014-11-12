@@ -129,9 +129,9 @@
 			  <OnClick>
 				db.AutoRepair=self:GetChecked();
 				if(db.AutoRepair) then
-				sml_inform("Auto repair now turned on");
+				sml_print("BestSeller","Auto repair now turned on");
 				else
-				sml_inform("Auto repair now turned off");
+				sml_print("BestSeller","Auto repair now turned off");
 				end
 			  </OnClick>
 			</Scripts>
@@ -180,9 +180,9 @@
 			  <OnClick>
 				db.GuildFundedRepair=self:GetChecked();
 				if(db.GuildFundedRepair) then
-				sml_inform("Guild funded repair now turned on");
+				sml_print("Guild funded repair now turned on");
 				else
-				sml_inform("Guild funded repair now turned off");
+				sml_print("Guild funded repair now turned off");
 				end
 			  </OnClick>
 			</Scripts>
@@ -232,9 +232,9 @@
 			  <OnClick>
 				db.ReputationRepair=self:GetChecked();
 				if(db.ReputationRepair) then
-				sml_inform("Reputation check before repair now turned on");
+				sml_print("BestSeller","Reputation check before repair now turned on");
 				else
-				sml_inform("Reputation check before repair now turned off");
+				sml_print("BestSeller","Reputation check before repair now turned off");
 				end
 			  </OnClick>
 			</Scripts>
@@ -400,7 +400,7 @@
 				UIDropDownMenu_SetSelectedValue(BSAMFramePanel3ComboReputation,x);
 				local wtf=UIDropDownMenu_GetSelectedValue(BSAMFramePanel3ComboReputation);
 				db.RepairReputation=x;
-				sml_inform("Repair reputation set to "..FACTION_STANDING[db.RepairReputation]);
+				sml_print("BestSeller","Repair reputation set to "..FACTION_STANDING[db.RepairReputation]);
 				end
 
 				local cb_init_merchant_rep_fn = function()
@@ -539,9 +539,9 @@
 			  <OnClick>
 				db.AutoBuy["Active"]=self:GetChecked();
 				if(db.AutoBuy["Active"]==1) then
-				sml_inform("Auto Buy now turned on");
+				sml_print("BestSeller","Auto Buy now turned on");
 				else
-				sml_inform("Auto Buy now turned off");
+				sml_print("BestSeller","Auto Buy now turned off");
 				end
 			  </OnClick>
 			</Scripts>
@@ -726,9 +726,9 @@
 				end;
 				db.AutoSell["Active"]=self:GetChecked();
 				if(db.AutoSell["Active"]) then
-				sml_inform("Auto Sell now turned on");
+				sml_print("BestSeller","Auto Sell now turned on");
 				else
-				sml_inform("Auto Sell now turned off");
+				sml_print("BestSeller","Auto Sell now turned off");
 				end
 			  </OnClick>
 			</Scripts>
@@ -780,10 +780,10 @@
 				if(db.HideMinimapIcon==nil) then db.HideMinimapIcon={}; end
 				db.HideMinimapIcon["Hide"]=self:GetChecked();
 				if(db.HideMinimapIcon["Hide"]) then
-				sml_inform("Minimap Icon now turned on - you can get to the options by typing /bestseller");
+				sml_print("BestSeller","Minimap Icon now turned on - you can get to the options by typing /bestseller");
 				BSMMButton:Hide();
 				else
-				sml_inform("Minimap Icon now turned off - you can get to the options by typing /bestseller");
+				sml_print("BestSeller","Minimap Icon now turned off - you can get to the options by typing /bestseller");
 				BSMMButton:Show();
 				end
 			  </OnClick>
@@ -838,9 +838,9 @@
 				end;
 				db.AutoSell["Safe"]=self:GetChecked();
 				if(db.AutoSell["Safe"]) then
-				sml_inform("Auto Sell SAFE Mode now turned on");
+				sml_print("BestSeller","Auto Sell SAFE Mode now turned on");
 				else
-				sml_inform("Auto Sell SAFE Mode now turned off");
+				sml_print("BestSeller","Auto Sell SAFE Mode now turned off");
 				end
 			  </OnClick>
 			</Scripts>
@@ -892,9 +892,9 @@
 				end;
 				db.AutoSell["GreyOnly"]=self:GetChecked();
 				if(db.AutoSell["GreyOnly"]) then
-				sml_inform("Sell grey only now turned on");
+				sml_print("BestSeller","Sell grey only now turned on");
 				else
-				sml_inform("Sell grey only now turned off");
+				sml_print("BestSeller","Sell grey only now turned off");
 				end
 			  </OnClick>
 			</Scripts>
@@ -946,9 +946,9 @@
 				end;
 				db.AutoSell["Remember"]=self:GetChecked();
 				if(db.AutoSell["Remember"]) then
-				sml_inform("Auto sell list now turned on");
+				sml_print("BestSeller","Auto sell list now turned on");
 				else
-				sml_inform("Auto sell list now turned off");
+				sml_print("BestSeller","Auto sell list now turned off");
 				end
 			  </OnClick>
 			</Scripts>
@@ -1000,9 +1000,9 @@
 				end;
 				db.AutoSell["AddASL"]=self:GetChecked();
 				if(db.AutoSell["AddASL"]) then
-				sml_inform("Add items to auto sell list on");
+				sml_print("BestSeller","Add items to auto sell list on");
 				else
-				sml_inform("Add items to auto sell list off");
+				sml_print("BestSeller","Add items to auto sell list off");
 				end
 			  </OnClick>
 			</Scripts>
@@ -1136,9 +1136,9 @@
 				end;
 				db.AutoSell["Soulbound"]=self:GetChecked();
 				if(db.AutoSell["Soulbound"]) then
-				sml_inform("Sell BOP items now turned on");
+				sml_print("BestSeller","Sell BOP items now turned on");
 				else
-				sml_inform("Sell BOP items now turned off");
+				sml_print("BestSeller","Sell BOP items now turned off");
 				end
 			  </OnClick>
 			</Scripts>
@@ -1308,7 +1308,7 @@
 				if(db.AutoSell["SoulboundQuality"]==nil) then
 				db.AutoSell["SoulboundQuality"]="";
 				end
-				sml_inform("Maximum BOP quality set to "..db.AutoSell["SoulboundQuality"]);
+				sml_print("BestSeller","Maximum BOP quality set to "..db.AutoSell["SoulboundQuality"]);
 				end
 
 				local cb_init_fn = function()
@@ -1475,7 +1475,7 @@
 			  </OnTabPressed>
 			  <OnEditFocusLost>
 				db.AutoSell["SoulboundLow"]=self:GetText();
-				sml_inform("Auto sell soulbound item minimum level set to "..db.AutoSell["SoulboundLow"]);
+				sml_print("BestSeller","Auto sell soulbound item minimum level set to "..db.AutoSell["SoulboundLow"]);
 			  </OnEditFocusLost>
 			</Scripts>
 			<FontString font="Fonts\ARIALN.TTF">
@@ -1586,7 +1586,7 @@
 			  </OnTabPressed>
 			  <OnEditFocusLost>
 				db.AutoSell["SoulboundHigh"]=self:GetText();
-				sml_inform("Auto sell soulbound item maximum level set to "..db.AutoSell["SoulboundHigh"]);
+				sml_print("BestSeller","Auto sell soulbound item maximum level set to "..db.AutoSell["SoulboundHigh"]);
 			  </OnEditFocusLost>
 			</Scripts>
 			<FontString font="Fonts\ARIALN.TTF">
@@ -1641,9 +1641,9 @@
 			  <OnClick>
 				db.AutoSell["BOPDungeon"]=self:GetChecked();
 				if(db.AutoSell["BOPDungeon"]) then
-				sml_inform("Adjust BOP item levels now turned on");
+				sml_print("BestSeller","Adjust BOP item levels now turned on");
 				else
-				sml_inform("Adjust BOP item levels now turned off");
+				sml_print("BestSeller","Adjust BOP item levels now turned off");
 				end
 			  </OnClick>
 			</Scripts>
@@ -1693,9 +1693,9 @@
 			  <OnClick>
 				db.AutoSell["LowFoods"]=self:GetChecked();
 				if(db.AutoSell["LowFoods"]) then
-				sml_inform("Sell outleveled food and drink items now turned on");
+				sml_print("BestSeller","Sell outleveled food and drink items now turned on");
 				else
-				sml_inform("Sell outleveled food and drink items now turned off");
+				sml_print("BestSeller","Sell outleveled food and drink items now turned off");
 				end
 			  </OnClick>
 			</Scripts>
@@ -1746,9 +1746,9 @@
 			  <OnClick>
 				db.AutoSell["BufFoods"]=self:GetChecked();
 				if(db.AutoSell["BufFoods"]) then
-				sml_inform("Sell outleveled food and drink items with bufs now turned on");
+				sml_print("BestSeller","Sell outleveled food and drink items with bufs now turned on");
 				else
-				sml_inform("Sell outleveled food and drink items with bufs now turned off");
+				sml_print("BestSeller","Sell outleveled food and drink items with bufs now turned off");
 				end
 			  </OnClick>
 			</Scripts>
@@ -1800,9 +1800,9 @@
 			  <OnClick>
 				db.AutoSell["QuestSell"]=self:GetChecked();
 				if(db.AutoSell["QuestSell"]) then
-				sml_inform("Sell quest items on");
+				sml_print("BestSeller","Sell quest items on");
 				else
-				sml_inform("Sell quest items off");
+				sml_print("BestSeller","Sell quest items off");
 				end
 			  </OnClick>
 			</Scripts>
@@ -1854,9 +1854,9 @@
 			  <OnClick>
 				db.QuestHigh=self:GetChecked();
 				if(db.QuestHigh) then
-				sml_inform("Select highest value quest items on");
+				sml_print("BestSeller","Select highest value quest items on");
 				else
-				sml_inform("Select highest value quest items off");
+				sml_print("BestSeller","Select highest value quest items off");
 				end
 			  </OnClick>
 			</Scripts>
@@ -1908,9 +1908,9 @@
 			  <OnClick>
 				db.QuestComplete=self:GetChecked();
 				if(db.QuestComplete) then
-				sml_inform("Auto complete quests on");
+				sml_print("BestSeller","Auto complete quests on");
 				else
-				sml_inform("Auto complete quests off");
+				sml_print("BestSeller","Auto complete quests off");
 				end
 			  </OnClick>
 			</Scripts>
@@ -1962,9 +1962,9 @@
 			  <OnClick>
 				db.QuestCheckiLevel=self:GetChecked();
 				if(db.QuestCheckiLevel) then
-				sml_inform("Check quest reward ilevel on");
+				sml_print("BestSeller","Check quest reward ilevel on");
 				else
-				sml_inform("Check quest reward ilevel off");
+				sml_print("BestSeller","Check quest reward ilevel off");
 				end
 			  </OnClick>
 			</Scripts>
@@ -2017,9 +2017,9 @@
 				end;
 				db.AutoSell["Detail"]=self:GetChecked();
 				if(db.AutoSell["Detail"]) then
-				sml_inform("Detailed selling information turned on");
+				sml_print("BestSeller","Detailed selling information turned on");
 				else
-				sml_inform("Detailed selling information turned off");
+				sml_print("BestSeller","Detailed selling information turned off");
 				end
 			  </OnClick>
 			</Scripts>
@@ -2071,9 +2071,9 @@
 				end;
 				db.AutoSell["DetailAll"]=self:GetChecked();
 				if(db.AutoSell["DetailAll"]) then
-				sml_inform("Auto Sell detail on items that did not sell on");
+				sml_print("BestSeller","Auto Sell detail on items that did not sell on");
 				else
-				sml_inform("Auto Sell detail on items that did not sell off");
+				sml_print("BestSeller","Auto Sell detail on items that did not sell off");
 				end
 			  </OnClick>
 			</Scripts>

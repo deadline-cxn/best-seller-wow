@@ -6,14 +6,14 @@ function bsRegisterEvent(event)
   end
 end
 lastitembuyback=0
-function bsOnEvent(self, event, ...) 
+function bsOnEvent(self, event, ...)
   bsSetDebugWindow()
   local arg1, arg2 = ...
   local nnames, nnum
   narg=sml_nargify(arg1)
   if (db) then
     if (db.DebugAllEvents) then
-      sml_dprint(" BEST SELLER EVENT ["..event.."]")
+      sml_dprint(db.Debug,"BestSeller"," BEST SELLER EVENT ["..event.."]")
     end
   end
   if (event == "VARIABLES_LOADED") then
@@ -119,15 +119,15 @@ function bsOnEvent(self, event, ...)
     for dditem,ddnum in string.gmatch(arg1,"You receive loot: (\[.+\])(%d)") do
       if ( dditem == nil ) then dditem="(error)" end
       if ( ddnum == nil ) then ddnum=1 end
-      sml_dprint(arg1.." TURNS INTO:")
-      sml_dprint(dditem..","..ddnum)
+      sml_dprint(db.Debug,"BestSeller",arg1.." TURNS INTO:")
+      sml_dprint(db.Debug,"BestSeller",dditem..","..ddnum)
       nnum=ddnum
       nnames=GetItemInfo(dditem)
     end
     if ( nnames ~= nil ) then
       ncount=GetItemCount( nnames )+nnum
       if(ncount>0) then
-		sml_inform("COUNTING "..nnames..":"..ncount)
+		sml_print("BestSeller","COUNTING "..nnames..":"..ncount)
       end
     end
   end
@@ -159,7 +159,7 @@ function bsOnEvent(self, event, ...)
 	local equippedilvl=0
 	local thelink=nil
     if(db.QuestHigh==1) then
-      sml_inform("Number of quest rewards:"..GetNumQuestChoices())
+      sml_print("BestSeller","Number of quest rewards:"..GetNumQuestChoices())
 	  for x=1,GetNumQuestChoices() do
         thelink=GetQuestItemLink("choice",x)
         if(thelink) then
@@ -182,7 +182,7 @@ function bsOnEvent(self, event, ...)
 	  end
 	  local button = _G["QuestInfoItem"..high_index]
       if button then
-		sml_inform("Auto selected "..getlink.." as highest vendor value quest reward.")
+		sml_print("BestSeller","Auto selected "..getlink.." as highest vendor value quest reward.")
 		button:Click()
 	  end
 	  if(db.QuestComplete==1) then
@@ -191,9 +191,9 @@ function bsOnEvent(self, event, ...)
 		  if(complete_button) then
 			complete_button:Click()
 		  end
-		  sml_inform("Completed quest automatically based on your settings.")
+		  sml_print("BestSeller","Completed quest automatically based on your settings.")
 		else
-		  sml_inform("Quest not completed automatically because there is a higher level item available as quest reward.")
+		  sml_print("BestSeller","Quest not completed automatically because there is a higher level item available as quest reward.")
 		end
 	  end
 	end
@@ -216,9 +216,9 @@ function bsOnEvent(self, event, ...)
 		if(db.ReputationRepair==1) then
 		  if(db.RepairReputation>whatfact) then
 			dorepair=0
-			sml_inform(YFCC.."Your reputation with the merchant's faction: "..FACTION_STANDING[whatfact]..RFCC.." (AUTOREPAIR NO)")
+			sml_print("BestSeller",YFCC.."Your reputation with the merchant's faction: "..FACTION_STANDING[whatfact]..RFCC.." (AUTOREPAIR NO)")
 		  else
-			sml_inform(YFCC.."Your reputation with the merchant's faction: "..FACTION_STANDING[whatfact]..GFCC.." (AUTOREPAIR YES)")
+			sml_print("BestSeller",YFCC.."Your reputation with the merchant's faction: "..FACTION_STANDING[whatfact]..GFCC.." (AUTOREPAIR YES)")
 		  end
 		end
 		if(dorepair==1) then
@@ -232,9 +232,9 @@ function bsOnEvent(self, event, ...)
 			end
 			RepairAllItems(db.GuildFundedRepair)
 			if(db.GuildFundedRepair==1) then
-			  sml_inform("All items repaired using guild funds. Total cost "..GetCoinText(repairAllCost))
+			  sml_print("BestSeller","All items repaired using guild funds. Total cost "..GetCoinText(repairAllCost))
 			else
-			  sml_inform("All items repaired using personal funds. Total cost "..GetCoinText(repairAllCost))
+			  sml_print("BestSeller","All items repaired using personal funds. Total cost "..GetCoinText(repairAllCost))
 			end
 		  end
 		end
@@ -249,14 +249,14 @@ function bsOnEvent(self, event, ...)
   end
   if (event == "MERCHANT_UPDATE") then
 	local numitms=GetNumBuybackItems()
-	sml_dprint("Num Buyback Items:"..numitms)
+	sml_dprint(db.Debug,"BestSeller","Num Buyback Items:"..numitms)
 	local sitem=GetBuybackItemLink(GetNumBuybackItems())
 	if(bAutoSellActive==0) then
 	  local curframe
 	  if(GetMouseFocus():GetName()~=nil)
 		then curframe=GetMouseFocus():GetName()
 		if(curframe~=nil) then
-		  sml_dprint("curframe:"..curframe)
+		  sml_dprint(db.Debug,"BestSeller","curframe:"..curframe)
 		end
 	  end
 	  if(curframe==nil)
@@ -264,7 +264,7 @@ function bsOnEvent(self, event, ...)
 	  end
 	  if(string.find(curframe,"Merchant")) then
 		if (iLastItemSold~=nil) then
-		  sml_dprint(">>> NOT SELLING, BUYING BACK >>> "..GetItemInfo(iLastItemSold))
+		  sml_dprint(db.Debug,"BestSeller",">>> NOT SELLING, BUYING BACK >>> "..GetItemInfo(iLastItemSold))
 		end
 		if(iLastItemSold~=nil) then
 		  bsRemoveSellItem(GetItemInfo(iLastItemSold))
@@ -272,7 +272,7 @@ function bsOnEvent(self, event, ...)
 	  else
 		if(sitem~=nil) then
 		  if(bsWasAutoSold(GetItemInfo(sitem))==1) then
-			sml_dprint(sitem.." was auto sold, not adding to list")
+			sml_dprint(db.Debug,"BestSeller",sitem.." was auto sold, not adding to list")
 		  else
 			if(db.AutoSell["AddASL"]==1) then
 			  bsAddSellItem(sitem)
