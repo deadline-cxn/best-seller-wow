@@ -180,9 +180,9 @@
 			  <OnClick>
 				db.GuildFundedRepair=self:GetChecked();
 				if(db.GuildFundedRepair) then
-				sml_print("Guild funded repair now turned on");
+				sml_print("BestSeller","Guild funded repair now turned on");
 				else
-				sml_print("Guild funded repair now turned off");
+				sml_print("BestSeller","Guild funded repair now turned off");
 				end
 			  </OnClick>
 			</Scripts>

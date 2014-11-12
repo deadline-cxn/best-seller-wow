@@ -59,7 +59,7 @@ function bsGetLink(item)
   return link
 end
 function bsGetEquippedItem(slot)
-  sml_print(slot)
+  sml_print("BestSeller",slot)
   slotId,what=GetInventorySlotInfo(slot)
   if(slotId~=nil) then return GetInventoryItemLink("player",slotId)
   end
@@ -84,7 +84,7 @@ end
 function bsTable(tbl)
   local x=0
   jjx=tostring(tbl)
-  sml_print("TABLE: "..jjx)
+  sml_print("BestSeller","TABLE: "..jjx)
   if( string.find(jjx,"table:")) then
 	x=tbl
   else
@@ -95,11 +95,11 @@ function bsTable(tbl)
 	  if(string.find(tostring(b),"table:")) then
 		bsTable(b)
 	  else
-		sml_print("["..tostring(a).."] "..tostring(b))
+		sml_print("BestSeller","["..tostring(a).."] "..tostring(b))
 	  end
 	end
   else
-	sml_print(tostring(x))
+	sml_print("BestSeller",tostring(x))
   end
 end
 function bsTargetFaction()

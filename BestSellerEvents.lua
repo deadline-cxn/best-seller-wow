@@ -61,7 +61,7 @@ function bsOnEvent(self, event, ...)
     end
     rpxpmsg=1
     rpxpsession=0
-    sml_print(RFCC.."BestSeller >> "..YFCC.."["..bsVersion.."] by Smashed (Bladefist - Alliance) loaded. For help type "..YFCC.."/bs help")
+    sml_print("BestSeller",bsVersion.." by Smashed (Bladefist - Alliance) loaded. For help type "..YFCC.."/bs help")
     BSAMFramePanel1CheckAutoSell:SetChecked(db.AutoSell["Active"])
     BSAMFramePanel1CheckSafe:SetChecked(db.AutoSell["Safe"])
     BSAMFramePanel1CheckGreyOnly:SetChecked(db.AutoSell["GreyOnly"])

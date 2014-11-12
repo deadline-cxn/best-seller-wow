@@ -4,7 +4,7 @@ function bsCommandHandler(self,msg)
   sml_dprint(db.Debug,"BestSeller","msg=["..msg.."]")
   sml_dprint(db.Debug,"BestSeller","Number of args: "..tostring(narg))
   if(narg[0] == "testmoney" ) then
-	sml_print(format("I have %d gold %d silver %d copper.", bsGetGold(), bsGetSilver(), bsGetCopper() ) )
+	sml_print("BestSeller",format("I have %d gold %d silver %d copper.", bsGetGold(), bsGetSilver(), bsGetCopper() ) )
   end
   if(narg[0] == nil) or
 	(narg[0] == "show" ) then
@@ -76,14 +76,14 @@ function bsCommandHandler(self,msg)
   end
   if(narg[0] == "asexlist") then
 	asi=1
-	sml_print("Auto sell excluded items:")
+	sml_print("BestSeller","Auto sell excluded items:")
 	for asname,astable in pairs(db.AutoSell["Exclude"]) do
 	  sml_print("["..asi.."] "..asname)
 	  asi=asi+1
 	end
   end
   if(narg[0] == "asremove") then
-	sml_print("Removing item "..narg[1].." from sell list")
+	sml_print("BestSeller","Removing item "..narg[1].." from sell list")
 	asi=1
 	for asname,astable in pairs(db.AutoSell["Items"]) do
 	  if(tonumber(asi)==tonumber(narg[1])) then
@@ -95,7 +95,7 @@ function bsCommandHandler(self,msg)
 	end
   end
   if(narg[0] == "asexremove") then
-	sml_print("Removing item "..narg[1].." from exclude list")
+	sml_print("BestSeller","Removing item "..narg[1].." from exclude list")
 	asi=1
 	for asname,astable in pairs(db.AutoSell["Exclude"]) do
 	  if(tonumber(asi)==tonumber(narg[1])) then

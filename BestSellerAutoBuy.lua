@@ -179,7 +179,7 @@ function bsABLAddFromFrame()
 	  db.AutoBuy["Items"]={}
 	end
 	db.AutoBuy["Items"][BSABLFrameAddItemBox:GetText()] = BSABLFrameAddItemAmountBox:GetText()
-	sml_print("Added "..BSABLFrameAddItemBox:GetText().." x "..BSABLFrameAddItemAmountBox:GetText().." to auto buy list")
+	sml_print("BestSeller","Added "..BSABLFrameAddItemBox:GetText().." x "..BSABLFrameAddItemAmountBox:GetText().." to auto buy list")
 	bsABLPopulate()
 	BSABLFrameAddItemBox:SetText("")
 	BSABLFrameAddItemBox:ClearFocus()
