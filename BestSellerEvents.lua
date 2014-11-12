@@ -6,7 +6,7 @@ function bsRegisterEvent(event)
   end
 end
 lastitembuyback=0
-function bsOnEvent(self, event, ...)
+function bsOnEvent(self, event, ...) 
   bsSetDebugWindow()
   local arg1, arg2 = ...
   local nnames, nnum
@@ -16,7 +16,7 @@ function bsOnEvent(self, event, ...)
       sml_dprint(" BEST SELLER EVENT ["..event.."]")
     end
   end
-  if (event == "VARIABLES_LOADED") then ------------------------------------[Save Variables]
+  if (event == "VARIABLES_LOADED") then
 	if( not BestSellerDatabase ) then
 	  BestSellerDatabase={}
 	end
@@ -131,13 +131,10 @@ function bsOnEvent(self, event, ...)
       end
     end
   end
-
   if ( event == "UNIT_INVENTORY_CHANGED" ) then
-
   end
-
   if ( event == "QUEST_DETAIL" ) then
-    if( db.QuestAccept == 1 ) then -- auto quest accept
+    if( db.QuestAccept == 1 ) then
       AcceptQuest()
     end
   end
@@ -151,7 +148,6 @@ function bsOnEvent(self, event, ...)
         end
 	]]--
   end
-
   if (event=="QUEST_COMPLETE") then
 	local high, high_index = 0, 0
 	local getlink=nil
@@ -288,4 +284,3 @@ function bsOnEvent(self, event, ...)
   end
   iLastItemSold=GetBuybackItemLink(GetNumBuybackItems())
 end
-

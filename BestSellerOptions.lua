@@ -2,7 +2,7 @@
 function bsOptions_Toggle()
   if (BSAMFrame:IsShown()) then
 	BSAMFrame:Hide()
-  else
+  else 
 	BSAMFrame:Show()
   end
 end

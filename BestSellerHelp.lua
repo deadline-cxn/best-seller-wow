@@ -16,4 +16,4 @@ function bsShowHelp(msg)
   sml_print(JFCC.."/bs aseremove #......removes an item from the auto sell exclusion list")
   sml_print(JFCC.."/bs aseadd <item>....adds an item (by name) to the auto sell exclusion list")
   sml_print(JFCC.."------------------------------------------------------------------------")
-end
+end 

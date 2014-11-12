@@ -1,6 +1,6 @@
 --[[    Filename: BestSeller.lua Author  : Smashed - Bladefist ]]--
 bsVersion = "v"..GetAddOnMetadata("BestSeller", "Version")
-bAutoSellActive=0
+bAutoSellActive=0 
 bMerchantOpen=0
 iLastItemSold=0
 BS_ITEM_SLOT = {}
