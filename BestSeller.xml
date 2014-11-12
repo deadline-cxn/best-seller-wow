@@ -1,1217 +1,1220 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-
-<Script file="BestSeller.lua"/>
-
-
-<Frame  name="BSFrame" hidden="true">
+  <Script file="BestSeller.lua"/>
+  <Frame  name="BSFrame" hidden="true">
 	<Scripts>
-		<OnLoad>
-            bsOnLoad(self);
-        </OnLoad>
-		<OnEvent>
-            bsOnEvent(self, event, ...);
-        </OnEvent>
+	  <OnLoad>
+		bsOnLoad(self);
+	  </OnLoad>
+	  <OnEvent>
+		bsOnEvent(self, event, ...);
+	  </OnEvent>
 	</Scripts>
-</Frame>
+  </Frame>
 
-<GameTooltip name="BSTooltip" inherits="GameTooltipTemplate">
-   <Scripts>
-     <Onload>
-        BSTooltip:SetOwner(BSFrame, "ANCHOR_NONE");
-    </Onload>
-   </Scripts>
-</GameTooltip>
+  <GameTooltip name="BSTooltip" inherits="GameTooltipTemplate">
+	<Scripts>
+	  <Onload>
+		BSTooltip:SetOwner(BSFrame, "ANCHOR_NONE");
+	  </Onload>
+	</Scripts>
+  </GameTooltip>
 
-<Button name="BSMMButton" movable="true" parent="Minimap" toplevel="true" frameStata="MEDIUM"  hidden="false">
-    <Size>
-        <AbsDimension x="34" y="34"/>
-    </Size>
-    <Anchors>
-        <Anchor point="CENTER" relativeTo="MinimapBackdrop" relativePoint="BOTTOM"/>
-    </Anchors>
-    <Layers>
-        <Layer level="ARTWORK">
-            <Texture file="Interface\AddOns\BestSeller\Data\BestSellerButtonUp">
-                <Size>
-                    <AbsDimension x="17" y="17"/>
-                </Size>
-                <Anchors>
-                    <Anchor point="TOPLEFT">
-                        <Offset> <AbsDimension x="7" y="-6"/> </Offset>
-                    </Anchor>
-                </Anchors>
-            </Texture>
-        </Layer>
-        <Layer level="OVERLAY">
-            <Texture file="Interface\Minimap\MiniMap-TrackingBorder">
-                <Size> <AbsDimension x="52" y="52"/> </Size>
-                <Anchors> <Anchor point="TOPLEFT"/> </Anchors>
-            </Texture>
-        </Layer>
-    </Layers>
-    <Scripts>
-        <OnMouseDown>
-            if(IsModifierKeyDown()) then
-                self:StartMoving();
-            end
-        </OnMouseDown>
-        <OnMouseUp>
-            self:StopMovingOrSizing();
-        </OnMouseUp>
-        <OnClick>
-            bsOptions_Toggle();
-        </OnClick>
-        <OnLoad>
-            BSMMButton.tooltipText = "Best Seller "..bsVersion.."|r|nLeft Click for Options |r|nShift-Right Click to move";
-            BSMMButton:RegisterForClicks("LeftButtonUp");
-			</OnLoad>
-        <OnEnter>
-            GameTooltip:SetOwner(BSMMButton, "ANCHOR_LEFT");
-            GameTooltip:SetText(BSMMButton.tooltipText);
-        </OnEnter>
-        <OnLeave>
-            GameTooltip:Hide();
-        </OnLeave>
-    </Scripts>
-    <HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-</Button>
+  <Button name="BSMMButton" movable="true" parent="Minimap" toplevel="true" frameStata="MEDIUM"  hidden="false">
+	<Size>
+	  <AbsDimension x="34" y="34"/>
+	</Size>
+	<Anchors>
+	  <Anchor point="CENTER" relativeTo="MinimapBackdrop" relativePoint="BOTTOM"/>
+	</Anchors>
+	<Layers>
+	  <Layer level="ARTWORK">
+		<Texture file="Interface\AddOns\BestSeller\Data\BestSellerButtonUp">
+		  <Size>
+			<AbsDimension x="17" y="17"/>
+		  </Size>
+		  <Anchors>
+			<Anchor point="TOPLEFT">
+			  <Offset>
+				<AbsDimension x="7" y="-6"/>
+			  </Offset>
+			</Anchor>
+		  </Anchors>
+		</Texture>
+	  </Layer>
+	  <Layer level="OVERLAY">
+		<Texture file="Interface\Minimap\MiniMap-TrackingBorder">
+		  <Size>
+			<AbsDimension x="52" y="52"/>
+		  </Size>
+		  <Anchors>
+			<Anchor point="TOPLEFT"/>
+		  </Anchors>
+		</Texture>
+	  </Layer>
+	</Layers>
+	<Scripts>
+	  <OnMouseDown>
+		if(IsModifierKeyDown()) then
+		self:StartMoving();
+		end
+	  </OnMouseDown>
+	  <OnMouseUp>
+		self:StopMovingOrSizing();
+	  </OnMouseUp>
+	  <OnClick>
+		bsOptions_Toggle();
+	  </OnClick>
+	  <OnLoad>
+		BSMMButton.tooltipText = "Best Seller "..bsVersion.."|r|nLeft Click for Options |r|nShift-Right Click to move";
+		BSMMButton:RegisterForClicks("LeftButtonUp");
+	  </OnLoad>
+	  <OnEnter>
+		GameTooltip:SetOwner(BSMMButton, "ANCHOR_LEFT");
+		GameTooltip:SetText(BSMMButton.tooltipText);
+	  </OnEnter>
+	  <OnLeave>
+		GameTooltip:Hide();
+	  </OnLeave>
+	</Scripts>
+	<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
+  </Button>
 
-<Button name="BSASLSFButtonTemplate" enableMouse="true" virtual="true">
-    <Size>
-        <AbsDimension x="300" y="16"/>
-    </Size>
-    <Layers>
-        <Layer level="BORDER">
-            <FontString name="$parent_Text" inherits="GameFontHighlight" wraponspaces="false" justifyH="LEFT"/>
-        </Layer>
-        <Layer level="BACKGROUND">
-            <Texture name="$parentHighlight" hidden="true">
-                <Size>
-                    <AbsDimension x="290" y="16"/>
-                </Size>
-                <Anchors>
-                    <Anchor point="LEFT">
-                        <Offset>
-                            <AbsDimension x="25" y="0"/>
-                        </Offset>
-                    </Anchor>
-                    <Anchor point="RIGHT">
-                        <Offset>
-                            <AbsDimension x="18" y="0"/>
-                        </Offset>
-                    </Anchor>
-                </Anchors>
-                <Color r="0.6" g="0.6" b="0.6" a="0.4"/>
-            </Texture>
-        </Layer>
-    </Layers>
-    <Scripts>
-        <OnEnter>
-        </OnEnter>
-        <OnLeave>
-        </OnLeave>
-        <OnClick>
-        </OnClick>
-    </Scripts>
-</Button>
-
-
-<Button name="BSABLSFButtonTemplate" enableMouse="true" virtual="true">
-    <Size>
-        <AbsDimension x="280" y="16"/>
-    </Size>
-    <Layers>
-        <Layer level="BORDER">
-
-            <FontString name="$parent_Text" inherits="GameFontHighlight" wraponspaces="false" justifyH="LEFT"/>
-
-            <FontString name="$parent_AmountText" inherits="GameFontHighlight" wraponspaces="false" justifyH="RIGHT"/>
-
-        </Layer>
-        <Layer level="BACKGROUND">
-            <Texture name="$parentHighlight" hidden="true">
-                <Size>
-                    <AbsDimension x="290" y="16"/>
-                </Size>
-                <Anchors>
-                    <Anchor point="LEFT">
-                        <Offset>
-                            <AbsDimension x="25" y="0"/>
-                        </Offset>
-                    </Anchor>
-                    <Anchor point="RIGHT">
-                        <Offset>
-                            <AbsDimension x="18" y="0"/>
-                        </Offset>
-                    </Anchor>
-                </Anchors>
-                <Color r="0.6" g="0.6" b="0.6" a="0.4"/>
-            </Texture>
-        </Layer>
-    </Layers>
-    <Scripts>
-        <OnEnter>
-        </OnEnter>
-        <OnLeave>
-        </OnLeave>
-        <OnClick>
-        </OnClick>
-    </Scripts>
-</Button>
+  <Button name="BSASLSFButtonTemplate" enableMouse="true" virtual="true">
+	<Size>
+	  <AbsDimension x="300" y="16"/>
+	</Size>
+	<Layers>
+	  <Layer level="BORDER">
+		<FontString name="$parent_Text" inherits="GameFontHighlight" wraponspaces="false" justifyH="LEFT"/>
+	  </Layer>
+	  <Layer level="BACKGROUND">
+		<Texture name="$parentHighlight" hidden="true">
+		  <Size>
+			<AbsDimension x="290" y="16"/>
+		  </Size>
+		  <Anchors>
+			<Anchor point="LEFT">
+			  <Offset>
+				<AbsDimension x="25" y="0"/>
+			  </Offset>
+			</Anchor>
+			<Anchor point="RIGHT">
+			  <Offset>
+				<AbsDimension x="18" y="0"/>
+			  </Offset>
+			</Anchor>
+		  </Anchors>
+		  <Color r="0.6" g="0.6" b="0.6" a="0.4"/>
+		</Texture>
+	  </Layer>
+	</Layers>
+	<Scripts>
+	  <OnEnter>
+	  </OnEnter>
+	  <OnLeave>
+	  </OnLeave>
+	  <OnClick>
+	  </OnClick>
+	</Scripts>
+  </Button>
 
 
-<Frame  name="BSASLFrame" toplevel="true" enableMouse="true" movable="true" parent="UIParent" hidden="true">
-    <Size>
-        <AbsDimension x="384" y="512"/>
-    </Size>
-    <Anchors>
-        <Anchor point="CENTER">
-            <Offset>
-                <AbsDimension x="0" y="-104"/>
-            </Offset>
-        </Anchor>
-    </Anchors>
-    <HitRectInsets>
-        <AbsInset left="0" right="35" top="0" bottom="75"/>
-    </HitRectInsets>
-    <Layers>
-        <Layer level="BACKGROUND">
-            <Texture file="Interface\AddOns\BestSeller\Data\BestSellerButtonASL">
-                <Size>
-                    <AbsDimension x="58" y="58"/>
-                </Size>
-                <Anchors>
-                    <Anchor point="TOPLEFT">
-                        <Offset>
-                            <AbsDimension x="10" y="-8"/>
-                        </Offset>
-                    </Anchor>
-                </Anchors>
-            </Texture>
-        </Layer>
-        <Layer level="ARTWORK">
-            <Texture file="Interface\TaxiFrame\UI-TaxiFrame-TopLeft">
-                <Size>
-                    <AbsDimension x="256" y="256"/>
-                </Size>
-                <Anchors>
-                    <Anchor point="TOPLEFT"/>
-                </Anchors>
-            </Texture>
+  <Button name="BSABLSFButtonTemplate" enableMouse="true" virtual="true">
+	<Size>
+	  <AbsDimension x="280" y="16"/>
+	</Size>
+	<Layers>
+	  <Layer level="BORDER">
 
-            <Texture file="Interface\TaxiFrame\UI-TaxiFrame-TopRight">
-                <Size>
-                    <AbsDimension x="128" y="256"/>
-                </Size>
-                <Anchors>
-                    <Anchor point="TOPLEFT">
-                        <Offset>
-                            <AbsDimension x="256" y="0"/>
-                        </Offset>
-                    </Anchor>
-                </Anchors>
-            </Texture>
+		<FontString name="$parent_Text" inherits="GameFontHighlight" wraponspaces="false" justifyH="LEFT"/>
 
-            <Texture file="Interface\TaxiFrame\UI-TaxiFrame-BotLeft">
-                <Size>
-                    <AbsDimension x="256" y="256"/>
-                </Size>
-                <Anchors>
-                    <Anchor point="TOPLEFT">
-                        <Offset>
-                            <AbsDimension x="0" y="-256"/>
-                        </Offset>
-                    </Anchor>
-                </Anchors>
-            </Texture>
+		<FontString name="$parent_AmountText" inherits="GameFontHighlight" wraponspaces="false" justifyH="RIGHT"/>
 
-            <Texture file="Interface\TaxiFrame\UI-TaxiFrame-BotRight">
-                <Size>
-                    <AbsDimension x="128" y="256"/>
-                </Size>
-                <Anchors>
-                    <Anchor point="TOPLEFT">
-                        <Offset>
-                            <AbsDimension x="256" y="-256"/>
-                        </Offset>
-                    </Anchor>
-                </Anchors>
-            </Texture>
-
-            <Texture file="Interface\AddOns\BestSeller\Data\BestSellerBkg">
-                <Size>
-                    <AbsDimension x="319" y="352"/>
-                </Size>
-                <Anchors>
-                    <Anchor point="TOPLEFT" relativePoint="TOPLEFT">
-                        <Offset>
-                            <AbsDimension x="22" y="-75"/>
-                        </Offset>
-                    </Anchor>
-                </Anchors>
-            </Texture>
-        </Layer>
-          <Layer level="DIALOG">
-            <FontString name="$parentRemoveHintText" font="Fonts\FRIZQT__.TTF" text="(wildcard format: word*) (Click below to remove an item)">
-              <Anchors>
-                <Anchor point="TOPLEFT">
-                    <Offset>
-                        <AbsDimension x="90" y="-58" />
-                    </Offset>
-                </Anchor>
-
-              </Anchors>
-              <FontHeight>
-                <AbsValue val="8" />
-              </FontHeight>
-              <Color r="1" g="0.8196079" b="0" />
-            </FontString>
-          </Layer>
-    </Layers>
-    <Frames>
-        <ScrollFrame name="BSASLSF" inherits="FauxScrollFrameTemplate">
-            <Size>
-                <AbsDimension x="298" y="353"/>
-            </Size>
-
-            <Anchors>
-                <Anchor point="TOPLEFT" relativeTo="BSASLFrame">
-                    <Offset>
-                        <AbsDimension x="19" y="-75"/>
-                    </Offset>
-                </Anchor>
-            </Anchors>
-
-            <Layers>
-                <Layer level="ARTWORK">
-                    <Texture file="Interface\PaperDollInfoFrame\UI-Character-ScrollBar">
-                        <Size>
-                            <AbsDimension x="31" y="266"/>
-                        </Size>
-                        <Anchors>
-                            <Anchor point="TOPLEFT" relativePoint="TOPRIGHT">
-                                <Offset>
-                                    <AbsDimension x="-1" y="4"/>
-                                </Offset>
-                            </Anchor>
-                        </Anchors>
-                        <TexCoords left="0" right="0.484375" top="0" bottom="1.0"/>
-                    </Texture>
-                    <Texture file="Interface\PaperDollInfoFrame\UI-Character-ScrollBar">
-                        <Size>
-                            <AbsDimension x="31" y="106"/>
-                        </Size>
-                        <Anchors>
-                            <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT">
-                                <Offset>
-                                    <AbsDimension x="-1" y="-2"/>
-                                </Offset>
-                            </Anchor>
-                        </Anchors>
-                        <TexCoords left="0.515625" right="1.0" top="0" bottom="0.4140625"/>
-                    </Texture>
-                </Layer>
-            </Layers>
-
-            <Scripts>
-                <OnVerticalScroll>
-                    FauxScrollFrame_OnVerticalScroll(self, offset, 16, bsASLPopulate);
-                </OnVerticalScroll>
-            </Scripts>
-        </ScrollFrame>
-        <Button name="BSASLFrameTitle" enableMouse="true">
-            <Size>
-                <AbsDimension x="250" y="14"/>
-            </Size>
-            <Anchors>
-                <Anchor point="TOP" relativeTo="BSASLFrame" relativePoint="TOP">
-                    <Offset>
-                        <AbsDimension x="3" y="-17"/>
-                    </Offset>
-                </Anchor>
-            </Anchors>
-            <Layers>
-                <Layer level="OVERLAY">
-                    <FontString name="BSASLFrameTitleText" JustifyH="CENTER" inherits="GameFontHighlight"/>
-                </Layer>
-            </Layers>
-            <Scripts>
-                <OnMouseDown>
-                    BSASLFrame:StartMoving();
-                </OnMouseDown>
-                <OnMouseUp>
-                    BSASLFrame:StopMovingOrSizing();
-                </OnMouseUp>
-            </Scripts>
-        </Button>
-        <Button name="BSASLFrameCloseButton" inherits="UIPanelCloseButton">
-            <Anchors>
-                <Anchor point="TOPRIGHT" relativeTo="BSASLFrame" relativePoint="TOPRIGHT">
-                    <Offset>
-                        <AbsDimension x="-29" y="-8"/>
-                    </Offset>
-                </Anchor>
-            </Anchors>
-            <Scripts>
-                <OnClick>
-                    BSASLFrame:Hide();
-                </OnClick>
-            </Scripts>
-        </Button>
-        <EditBox name="$parentAddItemBox" enableMouse="true" enableKeyboard="true">
-            <Size>
-              <AbsDimension x="165" y="50" />
-            </Size>
-            <Anchors>
-              <Anchor point="TOPLEFT">
-                <Offset>
-                  <AbsDimension x="80" y="-20" />
-                </Offset>
-              </Anchor>
-            </Anchors>
-            <Layers>
-              <Layer level="BACKGROUND">
-                <Texture name="$parentLeft" file="Interface\Common\Common-Input-Border">
-                  <Size>
-                    <AbsDimension x="8" y="20" />
-                  </Size>
-                  <Anchors>
-                    <Anchor point="LEFT" />
-                  </Anchors>
-                  <TexCoords left="0" right="0.0625" top="0" bottom="0.625" />
-                </Texture>
-                <Texture name="$parentRight" file="Interface\Common\Common-Input-Border">
-                  <Size>
-                    <AbsDimension x="8" y="20" />
-                  </Size>
-                  <Anchors>
-                    <Anchor point="RIGHT" />
-                  </Anchors>
-                  <TexCoords left="0.9375" right="1" top="0" bottom="0.625" />
-                </Texture>
-                <Texture name="$parentMiddle" file="Interface\Common\Common-Input-Border">
-                  <Size>
-                    <AbsDimension x="10" y="20" />
-                  </Size>
-                  <Anchors>
-                    <Anchor point="LEFT" relativeTo="$parentLeft" relativePoint="RIGHT" />
-                    <Anchor point="RIGHT" relativeTo="$parentRight" relativePoint="LEFT" />
-                  </Anchors>
-                  <TexCoords left="0.0625" right="0.9375" top="0" bottom="0.625" />
-                </Texture>
-              </Layer>
-            </Layers>
-            <FontString font="Fonts\ARIALN.TTF">
-              <FontHeight>
-                <AbsValue val="14" />
-              </FontHeight>
-              <Color r="1" g="1" b="1" />
-              <Shadow>
-                <Color r="0" g="0" b="0" />
-                <Offset>
-                  <AbsDimension x="1" y="-1" />
-                </Offset>
-              </Shadow>
-            </FontString>
-            <Scripts>
-              <OnLoad>
-                self:SetText("Enter new item name");
-                self:SetAutoFocus(false);
-                self:ClearFocus();
-              </OnLoad>
-              <OnEscapePressed>
-                self:ClearFocus();
-              </OnEscapePressed>
-              <OnEnterPressed>
-                bsASLEditBoxAdd();
-              </OnEnterPressed>
-              <OnMouseDown>
-                if(self:GetText()=="Enter new item name") then
-                    self:SetText("");
-                end
-              </OnMouseDown>
-            </Scripts>
-          </EditBox>
-        <Button name="$parentSellListAddButton" text="Add Item">
-            <Size>
-              <AbsDimension x="80" y="21" />
-            </Size>
-            <Anchors>
-              <Anchor point="TOPLEFT">
-                <Offset>
-                  <AbsDimension x="250" y="-34" />
-                </Offset>
-              </Anchor>
-            </Anchors>
-            <Scripts>
-              <OnClick>
-                bsASLEditBoxAdd();
-              </OnClick>
-            </Scripts>
-            <NormalTexture file="Interface\Buttons\UI-Panel-Button-Up">
-              <TexCoords left="0" right="0.625" top="0" bottom="0.6875" />
-            </NormalTexture>
-            <PushedTexture file="Interface\Buttons\UI-Panel-Button-Down">
-              <TexCoords left="0" right="0.625" top="0" bottom="0.6875" />
-            </PushedTexture>
-            <DisabledTexture file="Interface\Buttons\UI-Panel-Button-Disabled">
-              <TexCoords left="0" right="0.625" top="0" bottom="0.6875" />
-            </DisabledTexture>
-            <HighlightTexture file="Interface\Buttons\UI-Panel-Button-Highlight" alphaMode="ADD">
-              <TexCoords left="0" right="0.625" top="0" bottom="0.6875" />
-            </HighlightTexture>
-            <ButtonText name="$parentText">
-              <FontHeight>
-                <AbsValue val="10" />
-              </FontHeight>
-            </ButtonText>
-            <NormalFont style="GameFontNormal" />
-            <HighlightFont style="GameFontHighlight" />
-            <DisabledFont style="GameFontDisable" />
-          </Button>
-    </Frames>
-    <Scripts>
-        <OnLoad>
-            tinsert(UISpecialFrames,self:GetName());
-        </OnLoad>
-        <OnShow>
-            PlaySound("igCharacterInfoOpen");
-        </OnShow>
-        <OnHide>
-            PlaySound("igCharacterInfoClose");
-        </OnHide>
-    </Scripts>
-</Frame>
-
-<Frame  name="BSEXLFrame" toplevel="true" enableMouse="true" movable="true" parent="UIParent" hidden="true">
-    <Size>
-        <AbsDimension x="384" y="512"/>
-    </Size>
-    <Anchors>
-        <Anchor point="CENTER">
-            <Offset>
-                <AbsDimension x="0" y="-104"/>
-            </Offset>
-        </Anchor>
-    </Anchors>
-    <HitRectInsets>
-        <AbsInset left="0" right="35" top="0" bottom="75"/>
-    </HitRectInsets>
-    <Layers>
-        <Layer level="BACKGROUND">
-            <Texture file="Interface\AddOns\BestSeller\Data\BestSellerButtonEXL">
-                <Size>
-                    <AbsDimension x="58" y="58"/>
-                </Size>
-                <Anchors>
-                    <Anchor point="TOPLEFT">
-                        <Offset>
-                            <AbsDimension x="10" y="-8"/>
-                        </Offset>
-                    </Anchor>
-                </Anchors>
-            </Texture>
-        </Layer>
-        <Layer level="ARTWORK">
-            <Texture file="Interface\TaxiFrame\UI-TaxiFrame-TopLeft">
-                <Size>
-                    <AbsDimension x="256" y="256"/>
-                </Size>
-                <Anchors>
-                    <Anchor point="TOPLEFT"/>
-                </Anchors>
-            </Texture>
-
-            <Texture file="Interface\TaxiFrame\UI-TaxiFrame-TopRight">
-                <Size>
-                    <AbsDimension x="128" y="256"/>
-                </Size>
-                <Anchors>
-                    <Anchor point="TOPLEFT">
-                        <Offset>
-                            <AbsDimension x="256" y="0"/>
-                        </Offset>
-                    </Anchor>
-                </Anchors>
-            </Texture>
-
-            <Texture file="Interface\TaxiFrame\UI-TaxiFrame-BotLeft">
-                <Size>
-                    <AbsDimension x="256" y="256"/>
-                </Size>
-                <Anchors>
-                    <Anchor point="TOPLEFT">
-                        <Offset>
-                            <AbsDimension x="0" y="-256"/>
-                        </Offset>
-                    </Anchor>
-                </Anchors>
-            </Texture>
-
-            <Texture file="Interface\TaxiFrame\UI-TaxiFrame-BotRight">
-                <Size>
-                    <AbsDimension x="128" y="256"/>
-                </Size>
-                <Anchors>
-                    <Anchor point="TOPLEFT">
-                        <Offset>
-                            <AbsDimension x="256" y="-256"/>
-                        </Offset>
-                    </Anchor>
-                </Anchors>
-            </Texture>
-
-            <Texture file="Interface\AddOns\BestSeller\Data\BestSellerBkg">
-                <Size>
-                    <AbsDimension x="319" y="352"/>
-                </Size>
-                <Anchors>
-                    <Anchor point="TOPLEFT" relativePoint="TOPLEFT">
-                        <Offset>
-                            <AbsDimension x="22" y="-75"/>
-                        </Offset>
-                    </Anchor>
-                </Anchors>
-            </Texture>
-        </Layer>
-          <Layer level="DIALOG">
-            <FontString name="$parentRemoveHintText" font="Fonts\FRIZQT__.TTF" text="(wildcard format: word*) (Click below to remove an item)">
-              <Anchors>
-                <Anchor point="TOPLEFT">
-                    <Offset>
-                        <AbsDimension x="90" y="-58" />
-                    </Offset>
-                </Anchor>
-
-              </Anchors>
-              <FontHeight>
-                <AbsValue val="8" />
-              </FontHeight>
-              <Color r="1" g="0.8196079" b="0" />
-            </FontString>
-          </Layer>
-    </Layers>
-    <Frames>
-        <ScrollFrame name="BSEXLSF" inherits="FauxScrollFrameTemplate">
-            <Size>
-                <AbsDimension x="298" y="353"/>
-            </Size>
-
-            <Anchors>
-                <Anchor point="TOPLEFT" relativeTo="BSEXLFrame">
-                    <Offset>
-                        <AbsDimension x="19" y="-75"/>
-                    </Offset>
-                </Anchor>
-            </Anchors>
-
-            <Layers>
-                <Layer level="ARTWORK">
-                    <Texture file="Interface\PaperDollInfoFrame\UI-Character-ScrollBar">
-                        <Size>
-                            <AbsDimension x="31" y="266"/>
-                        </Size>
-                        <Anchors>
-                            <Anchor point="TOPLEFT" relativePoint="TOPRIGHT">
-                                <Offset>
-                                    <AbsDimension x="-1" y="4"/>
-                                </Offset>
-                            </Anchor>
-                        </Anchors>
-                        <TexCoords left="0" right="0.484375" top="0" bottom="1.0"/>
-                    </Texture>
-                    <Texture file="Interface\PaperDollInfoFrame\UI-Character-ScrollBar">
-                        <Size>
-                            <AbsDimension x="31" y="106"/>
-                        </Size>
-                        <Anchors>
-                            <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT">
-                                <Offset>
-                                    <AbsDimension x="-1" y="-2"/>
-                                </Offset>
-                            </Anchor>
-                        </Anchors>
-                        <TexCoords left="0.515625" right="1.0" top="0" bottom="0.4140625"/>
-                    </Texture>
-                </Layer>
-            </Layers>
-
-            <Scripts>
-                <OnVerticalScroll>
-                    FauxScrollFrame_OnVerticalScroll(self, offset, 16,  bsEXLPopulate);
-                </OnVerticalScroll>
-            </Scripts>
-        </ScrollFrame>
-        <Button name="BSEXLFrameTitle" enableMouse="true">
-            <Size>
-                <AbsDimension x="250" y="14"/>
-            </Size>
-            <Anchors>
-                <Anchor point="TOP" relativeTo="BSEXLFrame" relativePoint="TOP">
-                    <Offset>
-                        <AbsDimension x="3" y="-17"/>
-                    </Offset>
-                </Anchor>
-            </Anchors>
-            <Layers>
-                <Layer level="OVERLAY">
-                    <FontString name="BSEXLFrameTitleText" JustifyH="CENTER" inherits="GameFontHighlight"/>
-                </Layer>
-            </Layers>
-            <Scripts>
-                <OnMouseDown>
-                    BSEXLFrame:StartMoving();
-                </OnMouseDown>
-                <OnMouseUp>
-                    BSEXLFrame:StopMovingOrSizing();
-                </OnMouseUp>
-            </Scripts>
-        </Button>
-        <Button name="BSEXLFrameCloseButton" inherits="UIPanelCloseButton">
-            <Anchors>
-                <Anchor point="TOPRIGHT" relativeTo="BSEXLFrame" relativePoint="TOPRIGHT">
-                    <Offset>
-                        <AbsDimension x="-29" y="-8"/>
-                    </Offset>
-                </Anchor>
-            </Anchors>
-            <Scripts>
-                <OnClick>
-                    BSEXLFrame:Hide();
-                </OnClick>
-            </Scripts>
-        </Button>
-        <EditBox name="$parentAddItemBox" enableMouse="true" enableKeyboard="true">
-            <Size>
-              <AbsDimension x="165" y="50" />
-            </Size>
-            <Anchors>
-              <Anchor point="TOPLEFT">
-                <Offset>
-                  <AbsDimension x="80" y="-20" />
-                </Offset>
-              </Anchor>
-            </Anchors>
-            <Layers>
-              <Layer level="BACKGROUND">
-                <Texture name="$parentLeft" file="Interface\Common\Common-Input-Border">
-                  <Size>
-                    <AbsDimension x="8" y="20" />
-                  </Size>
-                  <Anchors>
-                    <Anchor point="LEFT" />
-                  </Anchors>
-                  <TexCoords left="0" right="0.0625" top="0" bottom="0.625" />
-                </Texture>
-                <Texture name="$parentRight" file="Interface\Common\Common-Input-Border">
-                  <Size>
-                    <AbsDimension x="8" y="20" />
-                  </Size>
-                  <Anchors>
-                    <Anchor point="RIGHT" />
-                  </Anchors>
-                  <TexCoords left="0.9375" right="1" top="0" bottom="0.625" />
-                </Texture>
-                <Texture name="$parentMiddle" file="Interface\Common\Common-Input-Border">
-                  <Size>
-                    <AbsDimension x="10" y="20" />
-                  </Size>
-                  <Anchors>
-                    <Anchor point="LEFT" relativeTo="$parentLeft" relativePoint="RIGHT" />
-                    <Anchor point="RIGHT" relativeTo="$parentRight" relativePoint="LEFT" />
-                  </Anchors>
-                  <TexCoords left="0.0625" right="0.9375" top="0" bottom="0.625" />
-                </Texture>
-              </Layer>
-            </Layers>
-            <FontString font="Fonts\ARIALN.TTF">
-              <FontHeight>
-                <AbsValue val="14" />
-              </FontHeight>
-              <Color r="1" g="1" b="1" />
-              <Shadow>
-                <Color r="0" g="0" b="0" />
-                <Offset>
-                  <AbsDimension x="1" y="-1" />
-                </Offset>
-              </Shadow>
-            </FontString>
-            <Scripts>
-              <OnLoad>
-                self:SetText("Enter new item name");
-                self:SetAutoFocus(false);
-                self:ClearFocus();
-              </OnLoad>
-              <OnEscapePressed>
-                self:ClearFocus();
-              </OnEscapePressed>
-              <OnEnterPressed>
-                bsEXLEditBoxAdd();
-              </OnEnterPressed>
-              <OnMouseDown>
-                if(self:GetText()=="Enter new item name") then
-                    self:SetText("");
-                end
-              </OnMouseDown>
-            </Scripts>
-          </EditBox>
-        <Button name="$parentEXListAddButton" text="Add Item">
-            <Size>
-              <AbsDimension x="80" y="21" />
-            </Size>
-            <Anchors>
-              <Anchor point="TOPLEFT">
-                <Offset>
-                  <AbsDimension x="250" y="-34" />
-                </Offset>
-              </Anchor>
-            </Anchors>
-            <Scripts>
-              <OnClick>
-                bsEXLEditBoxAdd();
-              </OnClick>
-            </Scripts>
-            <NormalTexture file="Interface\Buttons\UI-Panel-Button-Up">
-              <TexCoords left="0" right="0.625" top="0" bottom="0.6875" />
-            </NormalTexture>
-            <PushedTexture file="Interface\Buttons\UI-Panel-Button-Down">
-              <TexCoords left="0" right="0.625" top="0" bottom="0.6875" />
-            </PushedTexture>
-            <DisabledTexture file="Interface\Buttons\UI-Panel-Button-Disabled">
-              <TexCoords left="0" right="0.625" top="0" bottom="0.6875" />
-            </DisabledTexture>
-            <HighlightTexture file="Interface\Buttons\UI-Panel-Button-Highlight" alphaMode="ADD">
-              <TexCoords left="0" right="0.625" top="0" bottom="0.6875" />
-            </HighlightTexture>
-            <ButtonText name="$parentText">
-              <FontHeight>
-                <AbsValue val="10" />
-              </FontHeight>
-            </ButtonText>
-            <NormalFont style="GameFontNormal" />
-            <HighlightFont style="GameFontHighlight" />
-            <DisabledFont style="GameFontDisable" />
-          </Button>
-    </Frames>
-    <Scripts>
-        <OnLoad>
-            tinsert(UISpecialFrames,self:GetName());
-        </OnLoad>
-        <OnShow>
-            PlaySound("igCharacterInfoOpen");
-        </OnShow>
-        <OnHide>
-            PlaySound("igCharacterInfoClose");
-        </OnHide>
-    </Scripts>
-</Frame>
+	  </Layer>
+	  <Layer level="BACKGROUND">
+		<Texture name="$parentHighlight" hidden="true">
+		  <Size>
+			<AbsDimension x="290" y="16"/>
+		  </Size>
+		  <Anchors>
+			<Anchor point="LEFT">
+			  <Offset>
+				<AbsDimension x="25" y="0"/>
+			  </Offset>
+			</Anchor>
+			<Anchor point="RIGHT">
+			  <Offset>
+				<AbsDimension x="18" y="0"/>
+			  </Offset>
+			</Anchor>
+		  </Anchors>
+		  <Color r="0.6" g="0.6" b="0.6" a="0.4"/>
+		</Texture>
+	  </Layer>
+	</Layers>
+	<Scripts>
+	  <OnEnter>
+	  </OnEnter>
+	  <OnLeave>
+	  </OnLeave>
+	  <OnClick>
+	  </OnClick>
+	</Scripts>
+  </Button>
 
 
-<Frame  name="BSABLFrame" toplevel="true" enableMouse="true" movable="true" parent="UIParent" hidden="true">
-    <Size>
-        <AbsDimension x="384" y="512"/>
-    </Size>
-    <Anchors>
-        <Anchor point="CENTER">
-            <Offset>
-                <AbsDimension x="0" y="-104"/>
-            </Offset>
-        </Anchor>
-    </Anchors>
+  <Frame  name="BSASLFrame" toplevel="true" enableMouse="true" movable="true" parent="UIParent" hidden="true">
+	<Size>
+	  <AbsDimension x="384" y="512"/>
+	</Size>
+	<Anchors>
+	  <Anchor point="CENTER">
+		<Offset>
+		  <AbsDimension x="0" y="-104"/>
+		</Offset>
+	  </Anchor>
+	</Anchors>
+	<HitRectInsets>
+	  <AbsInset left="0" right="35" top="0" bottom="75"/>
+	</HitRectInsets>
+	<Layers>
+	  <Layer level="BACKGROUND">
+		<Texture file="Interface\AddOns\BestSeller\Data\BestSellerButtonASL">
+		  <Size>
+			<AbsDimension x="58" y="58"/>
+		  </Size>
+		  <Anchors>
+			<Anchor point="TOPLEFT">
+			  <Offset>
+				<AbsDimension x="10" y="-8"/>
+			  </Offset>
+			</Anchor>
+		  </Anchors>
+		</Texture>
+	  </Layer>
+	  <Layer level="ARTWORK">
+		<Texture file="Interface\TaxiFrame\UI-TaxiFrame-TopLeft">
+		  <Size>
+			<AbsDimension x="256" y="256"/>
+		  </Size>
+		  <Anchors>
+			<Anchor point="TOPLEFT"/>
+		  </Anchors>
+		</Texture>
 
-    <HitRectInsets>
-        <AbsInset left="0" right="35" top="0" bottom="75"/>
-    </HitRectInsets>
-    <Layers>
-        <Layer level="BACKGROUND">
-            <Texture file="Interface\AddOns\BestSeller\Data\BestSellerButtonABL">
-                <Size>
-                    <AbsDimension x="58" y="58"/>
-                </Size>
-                <Anchors>
-                    <Anchor point="TOPLEFT">
-                        <Offset>
-                            <AbsDimension x="10" y="-8"/>
-                        </Offset>
-                    </Anchor>
-                </Anchors>
-            </Texture>
-        </Layer>
-        <Layer level="ARTWORK">
-            <Texture file="Interface\TaxiFrame\UI-TaxiFrame-TopLeft">
-                <Size>
-                    <AbsDimension x="256" y="256"/>
-                </Size>
-                <Anchors>
-                    <Anchor point="TOPLEFT"/>
-                </Anchors>
-            </Texture>
+		<Texture file="Interface\TaxiFrame\UI-TaxiFrame-TopRight">
+		  <Size>
+			<AbsDimension x="128" y="256"/>
+		  </Size>
+		  <Anchors>
+			<Anchor point="TOPLEFT">
+			  <Offset>
+				<AbsDimension x="256" y="0"/>
+			  </Offset>
+			</Anchor>
+		  </Anchors>
+		</Texture>
 
-            <Texture file="Interface\TaxiFrame\UI-TaxiFrame-TopRight">
-                <Size>
-                    <AbsDimension x="128" y="256"/>
-                </Size>
-                <Anchors>
-                    <Anchor point="TOPLEFT">
-                        <Offset>
-                            <AbsDimension x="256" y="0"/>
-                        </Offset>
-                    </Anchor>
-                </Anchors>
-            </Texture>
+		<Texture file="Interface\TaxiFrame\UI-TaxiFrame-BotLeft">
+		  <Size>
+			<AbsDimension x="256" y="256"/>
+		  </Size>
+		  <Anchors>
+			<Anchor point="TOPLEFT">
+			  <Offset>
+				<AbsDimension x="0" y="-256"/>
+			  </Offset>
+			</Anchor>
+		  </Anchors>
+		</Texture>
 
-            <Texture file="Interface\TaxiFrame\UI-TaxiFrame-BotLeft">
-                <Size>
-                    <AbsDimension x="256" y="256"/>
-                </Size>
-                <Anchors>
-                    <Anchor point="TOPLEFT">
-                        <Offset>
-                            <AbsDimension x="0" y="-256"/>
-                        </Offset>
-                    </Anchor>
-                </Anchors>
-            </Texture>
+		<Texture file="Interface\TaxiFrame\UI-TaxiFrame-BotRight">
+		  <Size>
+			<AbsDimension x="128" y="256"/>
+		  </Size>
+		  <Anchors>
+			<Anchor point="TOPLEFT">
+			  <Offset>
+				<AbsDimension x="256" y="-256"/>
+			  </Offset>
+			</Anchor>
+		  </Anchors>
+		</Texture>
 
-            <Texture file="Interface\TaxiFrame\UI-TaxiFrame-BotRight">
-                <Size>
-                    <AbsDimension x="128" y="256"/>
-                </Size>
-                <Anchors>
-                    <Anchor point="TOPLEFT">
-                        <Offset>
-                            <AbsDimension x="256" y="-256"/>
-                        </Offset>
-                    </Anchor>
-                </Anchors>
-            </Texture>
+		<Texture file="Interface\AddOns\BestSeller\Data\BestSellerBkg">
+		  <Size>
+			<AbsDimension x="319" y="352"/>
+		  </Size>
+		  <Anchors>
+			<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+			  <Offset>
+				<AbsDimension x="22" y="-75"/>
+			  </Offset>
+			</Anchor>
+		  </Anchors>
+		</Texture>
+	  </Layer>
+	  <Layer level="DIALOG">
+		<FontString name="$parentRemoveHintText" font="Fonts\FRIZQT__.TTF" text="(wildcard format: word*) (Click below to remove an item)">
+		  <Anchors>
+			<Anchor point="TOPLEFT">
+			  <Offset>
+				<AbsDimension x="90" y="-58" />
+			  </Offset>
+			</Anchor>
 
-            <Texture file="Interface\AddOns\BestSeller\Data\BestSellerBkg">
-                <Size>
-                    <AbsDimension x="319" y="352"/>
-                </Size>
-                <Anchors>
-                    <Anchor point="TOPLEFT" relativePoint="TOPLEFT">
-                        <Offset>
-                            <AbsDimension x="22" y="-75"/>
-                        </Offset>
-                    </Anchor>
-                </Anchors>
-            </Texture>
-        </Layer>
-          <Layer level="DIALOG">
-            <FontString name="$parentRemoveHintText" font="Fonts\FRIZQT__.TTF" text="(wildcard format: word*) (Click below to remove an item)">
-              <Anchors>
-                <Anchor point="TOPLEFT">
-                    <Offset>
-                        <AbsDimension x="90" y="-58" />
-                    </Offset>
-                </Anchor>
+		  </Anchors>
+		  <FontHeight>
+			<AbsValue val="8" />
+		  </FontHeight>
+		  <Color r="1" g="0.8196079" b="0" />
+		</FontString>
+	  </Layer>
+	</Layers>
+	<Frames>
+	  <ScrollFrame name="BSASLSF" inherits="FauxScrollFrameTemplate">
+		<Size>
+		  <AbsDimension x="298" y="353"/>
+		</Size>
 
-              </Anchors>
-              <FontHeight>
-                <AbsValue val="8" />
-              </FontHeight>
-              <Color r="1" g="0.8196079" b="0" />
-            </FontString>
-          </Layer>
-    </Layers>
-    <Frames>
+		<Anchors>
+		  <Anchor point="TOPLEFT" relativeTo="BSASLFrame">
+			<Offset>
+			  <AbsDimension x="19" y="-75"/>
+			</Offset>
+		  </Anchor>
+		</Anchors>
 
-        <ScrollFrame name="BSABLSF" inherits="FauxScrollFrameTemplate">
-            <Size>
-                <AbsDimension x="298" y="353"/>
-            </Size>
+		<Layers>
+		  <Layer level="ARTWORK">
+			<Texture file="Interface\PaperDollInfoFrame\UI-Character-ScrollBar">
+			  <Size>
+				<AbsDimension x="31" y="266"/>
+			  </Size>
+			  <Anchors>
+				<Anchor point="TOPLEFT" relativePoint="TOPRIGHT">
+				  <Offset>
+					<AbsDimension x="-1" y="4"/>
+				  </Offset>
+				</Anchor>
+			  </Anchors>
+			  <TexCoords left="0" right="0.484375" top="0" bottom="1.0"/>
+			</Texture>
+			<Texture file="Interface\PaperDollInfoFrame\UI-Character-ScrollBar">
+			  <Size>
+				<AbsDimension x="31" y="106"/>
+			  </Size>
+			  <Anchors>
+				<Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT">
+				  <Offset>
+					<AbsDimension x="-1" y="-2"/>
+				  </Offset>
+				</Anchor>
+			  </Anchors>
+			  <TexCoords left="0.515625" right="1.0" top="0" bottom="0.4140625"/>
+			</Texture>
+		  </Layer>
+		</Layers>
 
-            <Anchors>
-                <Anchor point="TOPLEFT" relativeTo="$parent">
-                    <Offset>
-                        <AbsDimension x="19" y="-75"/>
-                    </Offset>
-                </Anchor>
-            </Anchors>
+		<Scripts>
+		  <OnVerticalScroll>
+			FauxScrollFrame_OnVerticalScroll(self, offset, 16, bsASLPopulate);
+		  </OnVerticalScroll>
+		</Scripts>
+	  </ScrollFrame>
+	  <Button name="BSASLFrameTitle" enableMouse="true">
+		<Size>
+		  <AbsDimension x="250" y="14"/>
+		</Size>
+		<Anchors>
+		  <Anchor point="TOP" relativeTo="BSASLFrame" relativePoint="TOP">
+			<Offset>
+			  <AbsDimension x="3" y="-17"/>
+			</Offset>
+		  </Anchor>
+		</Anchors>
+		<Layers>
+		  <Layer level="OVERLAY">
+			<FontString name="BSASLFrameTitleText" JustifyH="CENTER" inherits="GameFontHighlight"/>
+		  </Layer>
+		</Layers>
+		<Scripts>
+		  <OnMouseDown>
+			BSASLFrame:StartMoving();
+		  </OnMouseDown>
+		  <OnMouseUp>
+			BSASLFrame:StopMovingOrSizing();
+		  </OnMouseUp>
+		</Scripts>
+	  </Button>
+	  <Button name="BSASLFrameCloseButton" inherits="UIPanelCloseButton">
+		<Anchors>
+		  <Anchor point="TOPRIGHT" relativeTo="BSASLFrame" relativePoint="TOPRIGHT">
+			<Offset>
+			  <AbsDimension x="-29" y="-8"/>
+			</Offset>
+		  </Anchor>
+		</Anchors>
+		<Scripts>
+		  <OnClick>
+			BSASLFrame:Hide();
+		  </OnClick>
+		</Scripts>
+	  </Button>
+	  <EditBox name="$parentAddItemBox" enableMouse="true" enableKeyboard="true">
+		<Size>
+		  <AbsDimension x="165" y="50" />
+		</Size>
+		<Anchors>
+		  <Anchor point="TOPLEFT">
+			<Offset>
+			  <AbsDimension x="80" y="-20" />
+			</Offset>
+		  </Anchor>
+		</Anchors>
+		<Layers>
+		  <Layer level="BACKGROUND">
+			<Texture name="$parentLeft" file="Interface\Common\Common-Input-Border">
+			  <Size>
+				<AbsDimension x="8" y="20" />
+			  </Size>
+			  <Anchors>
+				<Anchor point="LEFT" />
+			  </Anchors>
+			  <TexCoords left="0" right="0.0625" top="0" bottom="0.625" />
+			</Texture>
+			<Texture name="$parentRight" file="Interface\Common\Common-Input-Border">
+			  <Size>
+				<AbsDimension x="8" y="20" />
+			  </Size>
+			  <Anchors>
+				<Anchor point="RIGHT" />
+			  </Anchors>
+			  <TexCoords left="0.9375" right="1" top="0" bottom="0.625" />
+			</Texture>
+			<Texture name="$parentMiddle" file="Interface\Common\Common-Input-Border">
+			  <Size>
+				<AbsDimension x="10" y="20" />
+			  </Size>
+			  <Anchors>
+				<Anchor point="LEFT" relativeTo="$parentLeft" relativePoint="RIGHT" />
+				<Anchor point="RIGHT" relativeTo="$parentRight" relativePoint="LEFT" />
+			  </Anchors>
+			  <TexCoords left="0.0625" right="0.9375" top="0" bottom="0.625" />
+			</Texture>
+		  </Layer>
+		</Layers>
+		<FontString font="Fonts\ARIALN.TTF">
+		  <FontHeight>
+			<AbsValue val="14" />
+		  </FontHeight>
+		  <Color r="1" g="1" b="1" />
+		  <Shadow>
+			<Color r="0" g="0" b="0" />
+			<Offset>
+			  <AbsDimension x="1" y="-1" />
+			</Offset>
+		  </Shadow>
+		</FontString>
+		<Scripts>
+		  <OnLoad>
+			self:SetText("Enter new item name");
+			self:SetAutoFocus(false);
+			self:ClearFocus();
+		  </OnLoad>
+		  <OnEscapePressed>
+			self:ClearFocus();
+		  </OnEscapePressed>
+		  <OnEnterPressed>
+			bsASLEditBoxAdd();
+		  </OnEnterPressed>
+		  <OnMouseDown>
+			if(self:GetText()=="Enter new item name") then
+			self:SetText("");
+			end
+		  </OnMouseDown>
+		</Scripts>
+	  </EditBox>
+	  <Button name="$parentSellListAddButton" text="Add Item">
+		<Size>
+		  <AbsDimension x="80" y="21" />
+		</Size>
+		<Anchors>
+		  <Anchor point="TOPLEFT">
+			<Offset>
+			  <AbsDimension x="250" y="-34" />
+			</Offset>
+		  </Anchor>
+		</Anchors>
+		<Scripts>
+		  <OnClick>
+			bsASLEditBoxAdd();
+		  </OnClick>
+		</Scripts>
+		<NormalTexture file="Interface\Buttons\UI-Panel-Button-Up">
+		  <TexCoords left="0" right="0.625" top="0" bottom="0.6875" />
+		</NormalTexture>
+		<PushedTexture file="Interface\Buttons\UI-Panel-Button-Down">
+		  <TexCoords left="0" right="0.625" top="0" bottom="0.6875" />
+		</PushedTexture>
+		<DisabledTexture file="Interface\Buttons\UI-Panel-Button-Disabled">
+		  <TexCoords left="0" right="0.625" top="0" bottom="0.6875" />
+		</DisabledTexture>
+		<HighlightTexture file="Interface\Buttons\UI-Panel-Button-Highlight" alphaMode="ADD">
+		  <TexCoords left="0" right="0.625" top="0" bottom="0.6875" />
+		</HighlightTexture>
+		<ButtonText name="$parentText">
+		  <FontHeight>
+			<AbsValue val="10" />
+		  </FontHeight>
+		</ButtonText>
+		<NormalFont style="GameFontNormal" />
+		<HighlightFont style="GameFontHighlight" />
+		<DisabledFont style="GameFontDisable" />
+	  </Button>
+	</Frames>
+	<Scripts>
+	  <OnLoad>
+		tinsert(UISpecialFrames,self:GetName());
+	  </OnLoad>
+	  <OnShow>
+		PlaySound("igCharacterInfoOpen");
+	  </OnShow>
+	  <OnHide>
+		PlaySound("igCharacterInfoClose");
+	  </OnHide>
+	</Scripts>
+  </Frame>
 
-            <Layers>
-                <Layer level="ARTWORK">
-                    <Texture file="Interface\PaperDollInfoFrame\UI-Character-ScrollBar">
-                        <Size>
-                            <AbsDimension x="31" y="266"/>
-                        </Size>
-                        <Anchors>
-                            <Anchor point="TOPLEFT" relativePoint="TOPRIGHT">
-                                <Offset>
-                                    <AbsDimension x="-1" y="4"/>
-                                </Offset>
-                            </Anchor>
-                        </Anchors>
-                        <TexCoords left="0" right="0.484375" top="0" bottom="1.0"/>
-                    </Texture>
-                    <Texture file="Interface\PaperDollInfoFrame\UI-Character-ScrollBar">
-                        <Size>
-                            <AbsDimension x="31" y="106"/>
-                        </Size>
-                        <Anchors>
-                            <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT">
-                                <Offset>
-                                    <AbsDimension x="-1" y="-2"/>
-                                </Offset>
-                            </Anchor>
-                        </Anchors>
-                        <TexCoords left="0.515625" right="1.0" top="0" bottom="0.4140625"/>
-                    </Texture>
-                </Layer>
-            </Layers>
+  <Frame  name="BSEXLFrame" toplevel="true" enableMouse="true" movable="true" parent="UIParent" hidden="true">
+	<Size>
+	  <AbsDimension x="384" y="512"/>
+	</Size>
+	<Anchors>
+	  <Anchor point="CENTER">
+		<Offset>
+		  <AbsDimension x="0" y="-104"/>
+		</Offset>
+	  </Anchor>
+	</Anchors>
+	<HitRectInsets>
+	  <AbsInset left="0" right="35" top="0" bottom="75"/>
+	</HitRectInsets>
+	<Layers>
+	  <Layer level="BACKGROUND">
+		<Texture file="Interface\AddOns\BestSeller\Data\BestSellerButtonEXL">
+		  <Size>
+			<AbsDimension x="58" y="58"/>
+		  </Size>
+		  <Anchors>
+			<Anchor point="TOPLEFT">
+			  <Offset>
+				<AbsDimension x="10" y="-8"/>
+			  </Offset>
+			</Anchor>
+		  </Anchors>
+		</Texture>
+	  </Layer>
+	  <Layer level="ARTWORK">
+		<Texture file="Interface\TaxiFrame\UI-TaxiFrame-TopLeft">
+		  <Size>
+			<AbsDimension x="256" y="256"/>
+		  </Size>
+		  <Anchors>
+			<Anchor point="TOPLEFT"/>
+		  </Anchors>
+		</Texture>
 
-            <Scripts>
-                <OnVerticalScroll>
-                    FauxScrollFrame_OnVerticalScroll(self, offset, 16,  bsABLPopulate);
-                </OnVerticalScroll>
-            </Scripts>
-        </ScrollFrame>
+		<Texture file="Interface\TaxiFrame\UI-TaxiFrame-TopRight">
+		  <Size>
+			<AbsDimension x="128" y="256"/>
+		  </Size>
+		  <Anchors>
+			<Anchor point="TOPLEFT">
+			  <Offset>
+				<AbsDimension x="256" y="0"/>
+			  </Offset>
+			</Anchor>
+		  </Anchors>
+		</Texture>
 
-        <Button name="$parentTitle" enableMouse="true">
-            <Size>
-                <AbsDimension x="250" y="14"/>
-            </Size>
-            <Anchors>
-                <Anchor point="TOP" relativeTo="$parent" relativePoint="TOP">
-                    <Offset>
-                        <AbsDimension x="3" y="-17"/>
-                    </Offset>
-                </Anchor>
-            </Anchors>
-            <Layers>
-                <Layer level="OVERLAY">
-                    <FontString name="$parentText" JustifyH="CENTER" inherits="GameFontHighlight" text="Auto Buy List"/>
-                </Layer>
-            </Layers>
-            <Scripts>
-                <OnMouseDown>
-                    BSABLFrame:StartMoving();
-                </OnMouseDown>
-                <OnMouseUp>
-                    BSABLFrame:StopMovingOrSizing();
-                </OnMouseUp>
-            </Scripts>
-        </Button>
+		<Texture file="Interface\TaxiFrame\UI-TaxiFrame-BotLeft">
+		  <Size>
+			<AbsDimension x="256" y="256"/>
+		  </Size>
+		  <Anchors>
+			<Anchor point="TOPLEFT">
+			  <Offset>
+				<AbsDimension x="0" y="-256"/>
+			  </Offset>
+			</Anchor>
+		  </Anchors>
+		</Texture>
 
-        <Button name="$parentCloseButton" inherits="UIPanelCloseButton">
-            <Anchors>
-                <Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT">
-                    <Offset>
-                        <AbsDimension x="-29" y="-8"/>
-                    </Offset>
-                </Anchor>
-            </Anchors>
-            <Scripts>
-                <OnClick>
-                    BSABLFrame:Hide();
-                </OnClick>
-            </Scripts>
-        </Button>
+		<Texture file="Interface\TaxiFrame\UI-TaxiFrame-BotRight">
+		  <Size>
+			<AbsDimension x="128" y="256"/>
+		  </Size>
+		  <Anchors>
+			<Anchor point="TOPLEFT">
+			  <Offset>
+				<AbsDimension x="256" y="-256"/>
+			  </Offset>
+			</Anchor>
+		  </Anchors>
+		</Texture>
 
-        <EditBox name="$parentAddItemBox" enableMouse="true" enableKeyboard="true">
-            <Size>
-              <AbsDimension x="145" y="50" />
-            </Size>
-            <Anchors>
-              <Anchor point="TOPLEFT">
-                <Offset>
-                  <AbsDimension x="70" y="-20" />
-                </Offset>
-              </Anchor>
-            </Anchors>
-            <Layers>
-              <Layer level="BACKGROUND">
-                <Texture name="$parentLeft" file="Interface\Common\Common-Input-Border">
-                  <Size>
-                    <AbsDimension x="8" y="20" />
-                  </Size>
-                  <Anchors>
-                    <Anchor point="LEFT" />
-                  </Anchors>
-                  <TexCoords left="0" right="0.0625" top="0" bottom="0.625" />
-                </Texture>
-                <Texture name="$parentRight" file="Interface\Common\Common-Input-Border">
-                  <Size>
-                    <AbsDimension x="8" y="20" />
-                  </Size>
-                  <Anchors>
-                    <Anchor point="RIGHT" />
-                  </Anchors>
-                  <TexCoords left="0.9375" right="1" top="0" bottom="0.625" />
-                </Texture>
-                <Texture name="$parentMiddle" file="Interface\Common\Common-Input-Border">
-                  <Size>
-                    <AbsDimension x="10" y="20" />
-                  </Size>
-                  <Anchors>
-                    <Anchor point="LEFT" relativeTo="$parentLeft" relativePoint="RIGHT" />
-                    <Anchor point="RIGHT" relativeTo="$parentRight" relativePoint="LEFT" />
-                  </Anchors>
-                  <TexCoords left="0.0625" right="0.9375" top="0" bottom="0.625" />
-                </Texture>
-              </Layer>
-            </Layers>
-            <FontString font="Fonts\ARIALN.TTF">
-              <FontHeight>
-                <AbsValue val="14" />
-              </FontHeight>
-              <Color r="1" g="1" b="1" />
-              <Shadow>
-                <Color r="0" g="0" b="0" />
-                <Offset>
-                  <AbsDimension x="1" y="-1" />
-                </Offset>
-              </Shadow>
-            </FontString>
-            <Scripts>
-              <OnLoad>
-                self:SetText("Enter new item name");
-                self:SetAutoFocus(false);
-                self:ClearFocus();
-              </OnLoad>
-              <OnEscapePressed>
-                self:ClearFocus();
-              </OnEscapePressed>
-              <OnEnterPressed>
-                bsABLAddFromFrame();
-              </OnEnterPressed>
-              <OnMouseDown>
-                if(self:GetText()=="Enter new item name") then
-                    self:SetText("");
-                end
-              </OnMouseDown>
-            </Scripts>
-          </EditBox>
+		<Texture file="Interface\AddOns\BestSeller\Data\BestSellerBkg">
+		  <Size>
+			<AbsDimension x="319" y="352"/>
+		  </Size>
+		  <Anchors>
+			<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+			  <Offset>
+				<AbsDimension x="22" y="-75"/>
+			  </Offset>
+			</Anchor>
+		  </Anchors>
+		</Texture>
+	  </Layer>
+	  <Layer level="DIALOG">
+		<FontString name="$parentRemoveHintText" font="Fonts\FRIZQT__.TTF" text="(wildcard format: word*) (Click below to remove an item)">
+		  <Anchors>
+			<Anchor point="TOPLEFT">
+			  <Offset>
+				<AbsDimension x="90" y="-58" />
+			  </Offset>
+			</Anchor>
 
-        <EditBox name="$parentAddItemAmountBox" enableMouse="true" enableKeyboard="true">
-            <Size>
-              <AbsDimension x="45" y="50" />
-            </Size>
-            <Anchors>
-              <Anchor point="TOPLEFT">
-                <Offset>
-                  <AbsDimension x="223" y="-20" />
-                </Offset>
-              </Anchor>
-            </Anchors>
-            <Layers>
-              <Layer level="BACKGROUND">
-                <Texture name="$parentLeft" file="Interface\Common\Common-Input-Border">
-                  <Size>
-                    <AbsDimension x="8" y="20" />
-                  </Size>
-                  <Anchors>
-                    <Anchor point="LEFT" />
-                  </Anchors>
-                  <TexCoords left="0" right="0.0625" top="0" bottom="0.625" />
-                </Texture>
-                <Texture name="$parentRight" file="Interface\Common\Common-Input-Border">
-                  <Size>
-                    <AbsDimension x="8" y="20" />
-                  </Size>
-                  <Anchors>
-                    <Anchor point="RIGHT" />
-                  </Anchors>
-                  <TexCoords left="0.9375" right="1" top="0" bottom="0.625" />
-                </Texture>
-                <Texture name="$parentMiddle" file="Interface\Common\Common-Input-Border">
-                  <Size>
-                    <AbsDimension x="10" y="20" />
-                  </Size>
-                  <Anchors>
-                    <Anchor point="LEFT" relativeTo="$parentLeft" relativePoint="RIGHT" />
-                    <Anchor point="RIGHT" relativeTo="$parentRight" relativePoint="LEFT" />
-                  </Anchors>
-                  <TexCoords left="0.0625" right="0.9375" top="0" bottom="0.625" />
-                </Texture>
-              </Layer>
-            </Layers>
-            <FontString font="Fonts\ARIALN.TTF">
-              <FontHeight>
-                <AbsValue val="14" />
-              </FontHeight>
-              <Color r="1" g="1" b="1" />
-              <Shadow>
-                <Color r="0" g="0" b="0" />
-                <Offset>
-                  <AbsDimension x="1" y="-1" />
-                </Offset>
-              </Shadow>
-            </FontString>
-            <Scripts>
-              <OnLoad>
-                self:SetText("1");
-                self:SetAutoFocus(false);
-                self:ClearFocus();
-              </OnLoad>
-              <OnEscapePressed>
-                self:ClearFocus();
-              </OnEscapePressed>
-              <OnEnterPressed>
-                bsABLAddFromFrame();
-              </OnEnterPressed>
-              <OnMouseDown>
-                if(self:GetText()=="1") then
-                    self:SetText("");
-                end
-              </OnMouseDown>
-            </Scripts>
-          </EditBox>
+		  </Anchors>
+		  <FontHeight>
+			<AbsValue val="8" />
+		  </FontHeight>
+		  <Color r="1" g="0.8196079" b="0" />
+		</FontString>
+	  </Layer>
+	</Layers>
+	<Frames>
+	  <ScrollFrame name="BSEXLSF" inherits="FauxScrollFrameTemplate">
+		<Size>
+		  <AbsDimension x="298" y="353"/>
+		</Size>
 
-        <Button name="$parentAddButton" text="Add">
-            <Size>
-              <AbsDimension x="40" y="21" />
-            </Size>
-            <Anchors>
-              <Anchor point="TOPLEFT">
-                <Offset>
-                  <AbsDimension x="280" y="-34" />
-                </Offset>
-              </Anchor>
-            </Anchors>
-            <Scripts>
-              <OnClick>
-                bsABLAddFromFrame();
-              </OnClick>
-            </Scripts>
-            <NormalTexture file="Interface\Buttons\UI-Panel-Button-Up">
-              <TexCoords left="0" right="0.625" top="0" bottom="0.6875" />
-            </NormalTexture>
-            <PushedTexture file="Interface\Buttons\UI-Panel-Button-Down">
-              <TexCoords left="0" right="0.625" top="0" bottom="0.6875" />
-            </PushedTexture>
-            <DisabledTexture file="Interface\Buttons\UI-Panel-Button-Disabled">
-              <TexCoords left="0" right="0.625" top="0" bottom="0.6875" />
-            </DisabledTexture>
-            <HighlightTexture file="Interface\Buttons\UI-Panel-Button-Highlight" alphaMode="ADD">
-              <TexCoords left="0" right="0.625" top="0" bottom="0.6875" />
-            </HighlightTexture>
-            <ButtonText name="$parentText">
-              <FontHeight>
-                <AbsValue val="10" />
-              </FontHeight>
-            </ButtonText>
-            <NormalFont style="GameFontNormal" />
-            <HighlightFont style="GameFontHighlight" />
-            <DisabledFont style="GameFontDisable" />
-          </Button>
+		<Anchors>
+		  <Anchor point="TOPLEFT" relativeTo="BSEXLFrame">
+			<Offset>
+			  <AbsDimension x="19" y="-75"/>
+			</Offset>
+		  </Anchor>
+		</Anchors>
 
-    </Frames>
+		<Layers>
+		  <Layer level="ARTWORK">
+			<Texture file="Interface\PaperDollInfoFrame\UI-Character-ScrollBar">
+			  <Size>
+				<AbsDimension x="31" y="266"/>
+			  </Size>
+			  <Anchors>
+				<Anchor point="TOPLEFT" relativePoint="TOPRIGHT">
+				  <Offset>
+					<AbsDimension x="-1" y="4"/>
+				  </Offset>
+				</Anchor>
+			  </Anchors>
+			  <TexCoords left="0" right="0.484375" top="0" bottom="1.0"/>
+			</Texture>
+			<Texture file="Interface\PaperDollInfoFrame\UI-Character-ScrollBar">
+			  <Size>
+				<AbsDimension x="31" y="106"/>
+			  </Size>
+			  <Anchors>
+				<Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT">
+				  <Offset>
+					<AbsDimension x="-1" y="-2"/>
+				  </Offset>
+				</Anchor>
+			  </Anchors>
+			  <TexCoords left="0.515625" right="1.0" top="0" bottom="0.4140625"/>
+			</Texture>
+		  </Layer>
+		</Layers>
 
-    <Scripts>
-        <OnLoad>
-            tinsert(UISpecialFrames,self:GetName());
-        </OnLoad>
-        <OnShow>
-            PlaySound("igCharacterInfoOpen");
-        </OnShow>
-        <OnHide>
-            PlaySound("igCharacterInfoClose");
-        </OnHide>
-    </Scripts>
+		<Scripts>
+		  <OnVerticalScroll>
+			FauxScrollFrame_OnVerticalScroll(self, offset, 16,  bsEXLPopulate);
+		  </OnVerticalScroll>
+		</Scripts>
+	  </ScrollFrame>
+	  <Button name="BSEXLFrameTitle" enableMouse="true">
+		<Size>
+		  <AbsDimension x="250" y="14"/>
+		</Size>
+		<Anchors>
+		  <Anchor point="TOP" relativeTo="BSEXLFrame" relativePoint="TOP">
+			<Offset>
+			  <AbsDimension x="3" y="-17"/>
+			</Offset>
+		  </Anchor>
+		</Anchors>
+		<Layers>
+		  <Layer level="OVERLAY">
+			<FontString name="BSEXLFrameTitleText" JustifyH="CENTER" inherits="GameFontHighlight"/>
+		  </Layer>
+		</Layers>
+		<Scripts>
+		  <OnMouseDown>
+			BSEXLFrame:StartMoving();
+		  </OnMouseDown>
+		  <OnMouseUp>
+			BSEXLFrame:StopMovingOrSizing();
+		  </OnMouseUp>
+		</Scripts>
+	  </Button>
+	  <Button name="BSEXLFrameCloseButton" inherits="UIPanelCloseButton">
+		<Anchors>
+		  <Anchor point="TOPRIGHT" relativeTo="BSEXLFrame" relativePoint="TOPRIGHT">
+			<Offset>
+			  <AbsDimension x="-29" y="-8"/>
+			</Offset>
+		  </Anchor>
+		</Anchors>
+		<Scripts>
+		  <OnClick>
+			BSEXLFrame:Hide();
+		  </OnClick>
+		</Scripts>
+	  </Button>
+	  <EditBox name="$parentAddItemBox" enableMouse="true" enableKeyboard="true">
+		<Size>
+		  <AbsDimension x="165" y="50" />
+		</Size>
+		<Anchors>
+		  <Anchor point="TOPLEFT">
+			<Offset>
+			  <AbsDimension x="80" y="-20" />
+			</Offset>
+		  </Anchor>
+		</Anchors>
+		<Layers>
+		  <Layer level="BACKGROUND">
+			<Texture name="$parentLeft" file="Interface\Common\Common-Input-Border">
+			  <Size>
+				<AbsDimension x="8" y="20" />
+			  </Size>
+			  <Anchors>
+				<Anchor point="LEFT" />
+			  </Anchors>
+			  <TexCoords left="0" right="0.0625" top="0" bottom="0.625" />
+			</Texture>
+			<Texture name="$parentRight" file="Interface\Common\Common-Input-Border">
+			  <Size>
+				<AbsDimension x="8" y="20" />
+			  </Size>
+			  <Anchors>
+				<Anchor point="RIGHT" />
+			  </Anchors>
+			  <TexCoords left="0.9375" right="1" top="0" bottom="0.625" />
+			</Texture>
+			<Texture name="$parentMiddle" file="Interface\Common\Common-Input-Border">
+			  <Size>
+				<AbsDimension x="10" y="20" />
+			  </Size>
+			  <Anchors>
+				<Anchor point="LEFT" relativeTo="$parentLeft" relativePoint="RIGHT" />
+				<Anchor point="RIGHT" relativeTo="$parentRight" relativePoint="LEFT" />
+			  </Anchors>
+			  <TexCoords left="0.0625" right="0.9375" top="0" bottom="0.625" />
+			</Texture>
+		  </Layer>
+		</Layers>
+		<FontString font="Fonts\ARIALN.TTF">
+		  <FontHeight>
+			<AbsValue val="14" />
+		  </FontHeight>
+		  <Color r="1" g="1" b="1" />
+		  <Shadow>
+			<Color r="0" g="0" b="0" />
+			<Offset>
+			  <AbsDimension x="1" y="-1" />
+			</Offset>
+		  </Shadow>
+		</FontString>
+		<Scripts>
+		  <OnLoad>
+			self:SetText("Enter new item name");
+			self:SetAutoFocus(false);
+			self:ClearFocus();
+		  </OnLoad>
+		  <OnEscapePressed>
+			self:ClearFocus();
+		  </OnEscapePressed>
+		  <OnEnterPressed>
+			bsEXLEditBoxAdd();
+		  </OnEnterPressed>
+		  <OnMouseDown>
+			if(self:GetText()=="Enter new item name") then
+			self:SetText("");
+			end
+		  </OnMouseDown>
+		</Scripts>
+	  </EditBox>
+	  <Button name="$parentEXListAddButton" text="Add Item">
+		<Size>
+		  <AbsDimension x="80" y="21" />
+		</Size>
+		<Anchors>
+		  <Anchor point="TOPLEFT">
+			<Offset>
+			  <AbsDimension x="250" y="-34" />
+			</Offset>
+		  </Anchor>
+		</Anchors>
+		<Scripts>
+		  <OnClick>
+			bsEXLEditBoxAdd();
+		  </OnClick>
+		</Scripts>
+		<NormalTexture file="Interface\Buttons\UI-Panel-Button-Up">
+		  <TexCoords left="0" right="0.625" top="0" bottom="0.6875" />
+		</NormalTexture>
+		<PushedTexture file="Interface\Buttons\UI-Panel-Button-Down">
+		  <TexCoords left="0" right="0.625" top="0" bottom="0.6875" />
+		</PushedTexture>
+		<DisabledTexture file="Interface\Buttons\UI-Panel-Button-Disabled">
+		  <TexCoords left="0" right="0.625" top="0" bottom="0.6875" />
+		</DisabledTexture>
+		<HighlightTexture file="Interface\Buttons\UI-Panel-Button-Highlight" alphaMode="ADD">
+		  <TexCoords left="0" right="0.625" top="0" bottom="0.6875" />
+		</HighlightTexture>
+		<ButtonText name="$parentText">
+		  <FontHeight>
+			<AbsValue val="10" />
+		  </FontHeight>
+		</ButtonText>
+		<NormalFont style="GameFontNormal" />
+		<HighlightFont style="GameFontHighlight" />
+		<DisabledFont style="GameFontDisable" />
+	  </Button>
+	</Frames>
+	<Scripts>
+	  <OnLoad>
+		tinsert(UISpecialFrames,self:GetName());
+	  </OnLoad>
+	  <OnShow>
+		PlaySound("igCharacterInfoOpen");
+	  </OnShow>
+	  <OnHide>
+		PlaySound("igCharacterInfoClose");
+	  </OnHide>
+	</Scripts>
+  </Frame>
 
-</Frame>
+
+  <Frame  name="BSABLFrame" toplevel="true" enableMouse="true" movable="true" parent="UIParent" hidden="true">
+	<Size>
+	  <AbsDimension x="384" y="512"/>
+	</Size>
+	<Anchors>
+	  <Anchor point="CENTER">
+		<Offset>
+		  <AbsDimension x="0" y="-104"/>
+		</Offset>
+	  </Anchor>
+	</Anchors>
+
+	<HitRectInsets>
+	  <AbsInset left="0" right="35" top="0" bottom="75"/>
+	</HitRectInsets>
+	<Layers>
+	  <Layer level="BACKGROUND">
+		<Texture file="Interface\AddOns\BestSeller\Data\BestSellerButtonABL">
+		  <Size>
+			<AbsDimension x="58" y="58"/>
+		  </Size>
+		  <Anchors>
+			<Anchor point="TOPLEFT">
+			  <Offset>
+				<AbsDimension x="10" y="-8"/>
+			  </Offset>
+			</Anchor>
+		  </Anchors>
+		</Texture>
+	  </Layer>
+	  <Layer level="ARTWORK">
+		<Texture file="Interface\TaxiFrame\UI-TaxiFrame-TopLeft">
+		  <Size>
+			<AbsDimension x="256" y="256"/>
+		  </Size>
+		  <Anchors>
+			<Anchor point="TOPLEFT"/>
+		  </Anchors>
+		</Texture>
+
+		<Texture file="Interface\TaxiFrame\UI-TaxiFrame-TopRight">
+		  <Size>
+			<AbsDimension x="128" y="256"/>
+		  </Size>
+		  <Anchors>
+			<Anchor point="TOPLEFT">
+			  <Offset>
+				<AbsDimension x="256" y="0"/>
+			  </Offset>
+			</Anchor>
+		  </Anchors>
+		</Texture>
+
+		<Texture file="Interface\TaxiFrame\UI-TaxiFrame-BotLeft">
+		  <Size>
+			<AbsDimension x="256" y="256"/>
+		  </Size>
+		  <Anchors>
+			<Anchor point="TOPLEFT">
+			  <Offset>
+				<AbsDimension x="0" y="-256"/>
+			  </Offset>
+			</Anchor>
+		  </Anchors>
+		</Texture>
+
+		<Texture file="Interface\TaxiFrame\UI-TaxiFrame-BotRight">
+		  <Size>
+			<AbsDimension x="128" y="256"/>
+		  </Size>
+		  <Anchors>
+			<Anchor point="TOPLEFT">
+			  <Offset>
+				<AbsDimension x="256" y="-256"/>
+			  </Offset>
+			</Anchor>
+		  </Anchors>
+		</Texture>
+
+		<Texture file="Interface\AddOns\BestSeller\Data\BestSellerBkg">
+		  <Size>
+			<AbsDimension x="319" y="352"/>
+		  </Size>
+		  <Anchors>
+			<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+			  <Offset>
+				<AbsDimension x="22" y="-75"/>
+			  </Offset>
+			</Anchor>
+		  </Anchors>
+		</Texture>
+	  </Layer>
+	  <Layer level="DIALOG">
+		<FontString name="$parentRemoveHintText" font="Fonts\FRIZQT__.TTF" text="(wildcard format: word*) (Click below to remove an item)">
+		  <Anchors>
+			<Anchor point="TOPLEFT">
+			  <Offset>
+				<AbsDimension x="90" y="-58" />
+			  </Offset>
+			</Anchor>
+
+		  </Anchors>
+		  <FontHeight>
+			<AbsValue val="8" />
+		  </FontHeight>
+		  <Color r="1" g="0.8196079" b="0" />
+		</FontString>
+	  </Layer>
+	</Layers>
+	<Frames>
+
+	  <ScrollFrame name="BSABLSF" inherits="FauxScrollFrameTemplate">
+		<Size>
+		  <AbsDimension x="298" y="353"/>
+		</Size>
+
+		<Anchors>
+		  <Anchor point="TOPLEFT" relativeTo="$parent">
+			<Offset>
+			  <AbsDimension x="19" y="-75"/>
+			</Offset>
+		  </Anchor>
+		</Anchors>
+
+		<Layers>
+		  <Layer level="ARTWORK">
+			<Texture file="Interface\PaperDollInfoFrame\UI-Character-ScrollBar">
+			  <Size>
+				<AbsDimension x="31" y="266"/>
+			  </Size>
+			  <Anchors>
+				<Anchor point="TOPLEFT" relativePoint="TOPRIGHT">
+				  <Offset>
+					<AbsDimension x="-1" y="4"/>
+				  </Offset>
+				</Anchor>
+			  </Anchors>
+			  <TexCoords left="0" right="0.484375" top="0" bottom="1.0"/>
+			</Texture>
+			<Texture file="Interface\PaperDollInfoFrame\UI-Character-ScrollBar">
+			  <Size>
+				<AbsDimension x="31" y="106"/>
+			  </Size>
+			  <Anchors>
+				<Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT">
+				  <Offset>
+					<AbsDimension x="-1" y="-2"/>
+				  </Offset>
+				</Anchor>
+			  </Anchors>
+			  <TexCoords left="0.515625" right="1.0" top="0" bottom="0.4140625"/>
+			</Texture>
+		  </Layer>
+		</Layers>
+
+		<Scripts>
+		  <OnVerticalScroll>
+			FauxScrollFrame_OnVerticalScroll(self, offset, 16,  bsABLPopulate);
+		  </OnVerticalScroll>
+		</Scripts>
+	  </ScrollFrame>
+
+	  <Button name="$parentTitle" enableMouse="true">
+		<Size>
+		  <AbsDimension x="250" y="14"/>
+		</Size>
+		<Anchors>
+		  <Anchor point="TOP" relativeTo="$parent" relativePoint="TOP">
+			<Offset>
+			  <AbsDimension x="3" y="-17"/>
+			</Offset>
+		  </Anchor>
+		</Anchors>
+		<Layers>
+		  <Layer level="OVERLAY">
+			<FontString name="$parentText" JustifyH="CENTER" inherits="GameFontHighlight" text="Auto Buy List"/>
+		  </Layer>
+		</Layers>
+		<Scripts>
+		  <OnMouseDown>
+			BSABLFrame:StartMoving();
+		  </OnMouseDown>
+		  <OnMouseUp>
+			BSABLFrame:StopMovingOrSizing();
+		  </OnMouseUp>
+		</Scripts>
+	  </Button>
+
+	  <Button name="$parentCloseButton" inherits="UIPanelCloseButton">
+		<Anchors>
+		  <Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT">
+			<Offset>
+			  <AbsDimension x="-29" y="-8"/>
+			</Offset>
+		  </Anchor>
+		</Anchors>
+		<Scripts>
+		  <OnClick>
+			BSABLFrame:Hide();
+		  </OnClick>
+		</Scripts>
+	  </Button>
+
+	  <EditBox name="$parentAddItemBox" enableMouse="true" enableKeyboard="true">
+		<Size>
+		  <AbsDimension x="145" y="50" />
+		</Size>
+		<Anchors>
+		  <Anchor point="TOPLEFT">
+			<Offset>
+			  <AbsDimension x="70" y="-20" />
+			</Offset>
+		  </Anchor>
+		</Anchors>
+		<Layers>
+		  <Layer level="BACKGROUND">
+			<Texture name="$parentLeft" file="Interface\Common\Common-Input-Border">
+			  <Size>
+				<AbsDimension x="8" y="20" />
+			  </Size>
+			  <Anchors>
+				<Anchor point="LEFT" />
+			  </Anchors>
+			  <TexCoords left="0" right="0.0625" top="0" bottom="0.625" />
+			</Texture>
+			<Texture name="$parentRight" file="Interface\Common\Common-Input-Border">
+			  <Size>
+				<AbsDimension x="8" y="20" />
+			  </Size>
+			  <Anchors>
+				<Anchor point="RIGHT" />
+			  </Anchors>
+			  <TexCoords left="0.9375" right="1" top="0" bottom="0.625" />
+			</Texture>
+			<Texture name="$parentMiddle" file="Interface\Common\Common-Input-Border">
+			  <Size>
+				<AbsDimension x="10" y="20" />
+			  </Size>
+			  <Anchors>
+				<Anchor point="LEFT" relativeTo="$parentLeft" relativePoint="RIGHT" />
+				<Anchor point="RIGHT" relativeTo="$parentRight" relativePoint="LEFT" />
+			  </Anchors>
+			  <TexCoords left="0.0625" right="0.9375" top="0" bottom="0.625" />
+			</Texture>
+		  </Layer>
+		</Layers>
+		<FontString font="Fonts\ARIALN.TTF">
+		  <FontHeight>
+			<AbsValue val="14" />
+		  </FontHeight>
+		  <Color r="1" g="1" b="1" />
+		  <Shadow>
+			<Color r="0" g="0" b="0" />
+			<Offset>
+			  <AbsDimension x="1" y="-1" />
+			</Offset>
+		  </Shadow>
+		</FontString>
+		<Scripts>
+		  <OnLoad>
+			self:SetText("Enter new item name");
+			self:SetAutoFocus(false);
+			self:ClearFocus();
+		  </OnLoad>
+		  <OnEscapePressed>
+			self:ClearFocus();
+		  </OnEscapePressed>
+		  <OnEnterPressed>
+			bsABLAddFromFrame();
+		  </OnEnterPressed>
+		  <OnMouseDown>
+			if(self:GetText()=="Enter new item name") then
+			self:SetText("");
+			end
+		  </OnMouseDown>
+		</Scripts>
+	  </EditBox>
+
+	  <EditBox name="$parentAddItemAmountBox" enableMouse="true" enableKeyboard="true">
+		<Size>
+		  <AbsDimension x="45" y="50" />
+		</Size>
+		<Anchors>
+		  <Anchor point="TOPLEFT">
+			<Offset>
+			  <AbsDimension x="223" y="-20" />
+			</Offset>
+		  </Anchor>
+		</Anchors>
+		<Layers>
+		  <Layer level="BACKGROUND">
+			<Texture name="$parentLeft" file="Interface\Common\Common-Input-Border">
+			  <Size>
+				<AbsDimension x="8" y="20" />
+			  </Size>
+			  <Anchors>
+				<Anchor point="LEFT" />
+			  </Anchors>
+			  <TexCoords left="0" right="0.0625" top="0" bottom="0.625" />
+			</Texture>
+			<Texture name="$parentRight" file="Interface\Common\Common-Input-Border">
+			  <Size>
+				<AbsDimension x="8" y="20" />
+			  </Size>
+			  <Anchors>
+				<Anchor point="RIGHT" />
+			  </Anchors>
+			  <TexCoords left="0.9375" right="1" top="0" bottom="0.625" />
+			</Texture>
+			<Texture name="$parentMiddle" file="Interface\Common\Common-Input-Border">
+			  <Size>
+				<AbsDimension x="10" y="20" />
+			  </Size>
+			  <Anchors>
+				<Anchor point="LEFT" relativeTo="$parentLeft" relativePoint="RIGHT" />
+				<Anchor point="RIGHT" relativeTo="$parentRight" relativePoint="LEFT" />
+			  </Anchors>
+			  <TexCoords left="0.0625" right="0.9375" top="0" bottom="0.625" />
+			</Texture>
+		  </Layer>
+		</Layers>
+		<FontString font="Fonts\ARIALN.TTF">
+		  <FontHeight>
+			<AbsValue val="14" />
+		  </FontHeight>
+		  <Color r="1" g="1" b="1" />
+		  <Shadow>
+			<Color r="0" g="0" b="0" />
+			<Offset>
+			  <AbsDimension x="1" y="-1" />
+			</Offset>
+		  </Shadow>
+		</FontString>
+		<Scripts>
+		  <OnLoad>
+			self:SetText("1");
+			self:SetAutoFocus(false);
+			self:ClearFocus();
+		  </OnLoad>
+		  <OnEscapePressed>
+			self:ClearFocus();
+		  </OnEscapePressed>
+		  <OnEnterPressed>
+			bsABLAddFromFrame();
+		  </OnEnterPressed>
+		  <OnMouseDown>
+			if(self:GetText()=="1") then
+			self:SetText("");
+			end
+		  </OnMouseDown>
+		</Scripts>
+	  </EditBox>
+
+	  <Button name="$parentAddButton" text="Add">
+		<Size>
+		  <AbsDimension x="40" y="21" />
+		</Size>
+		<Anchors>
+		  <Anchor point="TOPLEFT">
+			<Offset>
+			  <AbsDimension x="280" y="-34" />
+			</Offset>
+		  </Anchor>
+		</Anchors>
+		<Scripts>
+		  <OnClick>
+			bsABLAddFromFrame();
+		  </OnClick>
+		</Scripts>
+		<NormalTexture file="Interface\Buttons\UI-Panel-Button-Up">
+		  <TexCoords left="0" right="0.625" top="0" bottom="0.6875" />
+		</NormalTexture>
+		<PushedTexture file="Interface\Buttons\UI-Panel-Button-Down">
+		  <TexCoords left="0" right="0.625" top="0" bottom="0.6875" />
+		</PushedTexture>
+		<DisabledTexture file="Interface\Buttons\UI-Panel-Button-Disabled">
+		  <TexCoords left="0" right="0.625" top="0" bottom="0.6875" />
+		</DisabledTexture>
+		<HighlightTexture file="Interface\Buttons\UI-Panel-Button-Highlight" alphaMode="ADD">
+		  <TexCoords left="0" right="0.625" top="0" bottom="0.6875" />
+		</HighlightTexture>
+		<ButtonText name="$parentText">
+		  <FontHeight>
+			<AbsValue val="10" />
+		  </FontHeight>
+		</ButtonText>
+		<NormalFont style="GameFontNormal" />
+		<HighlightFont style="GameFontHighlight" />
+		<DisabledFont style="GameFontDisable" />
+	  </Button>
+
+	</Frames>
+
+	<Scripts>
+	  <OnLoad>
+		tinsert(UISpecialFrames,self:GetName());
+	  </OnLoad>
+	  <OnShow>
+		PlaySound("igCharacterInfoOpen");
+	  </OnShow>
+	  <OnHide>
+		PlaySound("igCharacterInfoClose");
+	  </OnHide>
+	</Scripts>
+
+  </Frame>
 
 </Ui>
