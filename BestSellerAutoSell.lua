@@ -312,9 +312,6 @@ function bsAutoSell()
 	  end
 	end
   end
-
-  sml_print("BestSeller","bsAutoSell() 3");
-
   if (itotalgold>0) then
 	sml_print("BestSeller","Total money earned for auto selling items "..GetCoinText(itotalgold))
   end

@@ -76,7 +76,7 @@ function bsOnEvent(self, event, ...)
     if(db.AutoSell["SoulboundQuality"]==nil) then db.AutoSell["SoulboundQuality"]=0 end
     if(db.AutoSell["SoulboundQuality"]~=nil) then
       UIDropDownMenu_SetSelectedValue(BSAMFramePanel1ComboBox1,db.AutoSell["SoulboundQuality"])
-      BSAMFramePanel1ComboBox1Text:SetText(ITEM_QUALITY[db.AutoSell["SoulboundQuality"]])
+      BSAMFramePanel1ComboBox1Text:SetText(smldb.ITEM_QUALITY[db.AutoSell["SoulboundQuality"]])
     end
     if(db.AutoSell["SoulboundLow"]==nil) then db.AutoSell["SoulboundLow"]=2 end
     BSAMFramePanel1SoulboundLow:SetText(db.AutoSell["SoulboundLow"])
@@ -92,7 +92,7 @@ function bsOnEvent(self, event, ...)
     BSAMFramePanel3CheckReputationCheck:SetChecked(db.ReputationRepair)
     if(db.RepairReputation~=nil) then
       UIDropDownMenu_SetSelectedValue(BSAMFramePanel3ComboReputation,db.RepairReputation)
-      BSAMFramePanel3ComboReputationText:SetText(FACTION_STANDING[db.RepairReputation])
+      BSAMFramePanel3ComboReputationText:SetText(smldb.FACTION_STANDING[db.RepairReputation])
     end
     db.bsChatFrame=DEFAULT_CHAT_FRAME
     bsASLCreateButtons()
@@ -212,9 +212,9 @@ function bsOnEvent(self, event, ...)
 		if(db.ReputationRepair==1) then
 		  if(db.RepairReputation>whatfact) then
 			dorepair=0
-			sml_print("BestSeller",YFCC.."Your reputation with the merchant's faction: "..FACTION_STANDING[whatfact]..RFCC.." (AUTOREPAIR NO)")
+			sml_print("BestSeller",YFCC.."Your reputation with the merchant's faction: "..smldb.FACTION_STANDING[whatfact]..RFCC.." (AUTOREPAIR NO)")
 		  else
-			sml_print("BestSeller",YFCC.."Your reputation with the merchant's faction: "..FACTION_STANDING[whatfact]..GFCC.." (AUTOREPAIR YES)")
+			sml_print("BestSeller",YFCC.."Your reputation with the merchant's faction: "..smldb.FACTION_STANDING[whatfact]..GFCC.." (AUTOREPAIR YES)")
 		  end
 		end
 		if(dorepair==1) then

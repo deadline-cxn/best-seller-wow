@@ -1,28 +1,11 @@
 --[[    Filename: BestSeller.lua Author  : Smashed - Bladefist ]]--
+
 bsVersion = "v"..GetAddOnMetadata("BestSeller", "Version")
+
 bAutoSellActive=0
 bMerchantOpen=0
 iLastItemSold=0
-BS_ITEM_SLOT = {}
-BS_ITEM_SLOT[0]="HeadSlot"
-BS_ITEM_SLOT[1]="NeckSlot"
-BS_ITEM_SLOT[2]="ShoulderSlot"
-BS_ITEM_SLOT[3]="BackSlot"
-BS_ITEM_SLOT[4]="ChestSlot"
-BS_ITEM_SLOT[5]="ShirtSlot"
-BS_ITEM_SLOT[6]="TabardSlot"
-BS_ITEM_SLOT[7]="WristSlot"
-BS_ITEM_SLOT[8]="HandsSlot"
-BS_ITEM_SLOT[9]="WaistSlot"
-BS_ITEM_SLOT[10]="LegsSlot"
-BS_ITEM_SLOT[11]="FeetSlot"
-BS_ITEM_SLOT[12]="Finger0Slot"
-BS_ITEM_SLOT[13]="Finger1Slot"
-BS_ITEM_SLOT[14]="Trinket0Slot"
-BS_ITEM_SLOT[15]="Trinket1Slot"
-BS_ITEM_SLOT[16]="MainHandSlot"
-BS_ITEM_SLOT[17]="SecondaryHandSlot"
-BS_ITEM_SLOT[18]="RangedSlot"
+
 function bsOnLoad(self)
   SLASH_BestSeller1 = "/bestseller"
   SLASH_BestSeller2 = "/bs"
@@ -50,9 +33,7 @@ function bsOnLoad(self)
   bsRegisterEvent("VARIABLES_LOADED")
 end
 function bsGetLink(item)
-  if(item==nil) then
-	return nil
-  end
+  if(item==nil) then return nil end
   for io,iw,ix in string.gmatch(item,"(.+)item:(.+):(.+)") do
 	link="item:"..iw..":0"
   end
@@ -121,7 +102,7 @@ function bsTargetFaction()
 	  name,description,standingId,bottomValue,topValue,earnedValue,atWarWith,canToggleAtWar,isHeader,isCollapsed,hasRep,isWatched,isChild=GetFactionInfo(factionIndex)
 	  if isHeader == nil then
 		if(string.find(amtext:GetText(),name)) then
-		  sml_dprint(db.Debug,"BestSeller","Target Faction: " .. name .. " ("..FACTION_STANDING[standingId]..")")
+		  sml_dprint(db.Debug,"BestSeller","Target Faction: " .. name .. " ("..smldb.FACTION_STANDING[standingId]..")")
 		  return standingId
 		end
 	  end
@@ -136,18 +117,13 @@ function printSubClasses(...)
 end
 function bsCompareItem(xitem)
   local itemName,itemLink,itemRarity,itemiLevel,itemMinLevel,itemType,itemSubType,itemStackCount,itemEquipLoc,itemTexture,itemSellPrice=GetItemInfo(xitem)
-  if(itemName==nil) then
-	itemName="(nameerror)"
-  end
-  if(itemiLevel==nil) then
-	itemiLevel="(ilevelerror)"
-  end
-  if(itemEquipLoc==nil) then
-	itemEquipLoc=0
-  end
-  sml_dprint(db.Debug,"BestSeller","COMPARING ITEM: "..itemName.." (ilevel:"..itemiLevel..") (equipslot:"..BS_ITEM_SLOT[itemEquipLoc]..")")
+  if(itemName==nil) then itemName="(nameerror)" end
+  if(itemiLevel==nil) then itemiLevel="(ilevelerror)" end
+  if(itemEquipLoc==nil) then itemEquipLoc=0 end
+  sml_dprint(db.Debug,"BestSeller","COMPARING ITEM: "..itemName.." (ilevel:"..itemiLevel..") (equipslot:"..smldb.ITEM_SLOT[itemEquipLoc]..")")
   local charitem=GetInventoryItemLink("player", itemEquipLoc)
   local item2Name,item2Link,item2Rarity,item2iLevel,item2MinLevel,item2Type,item2SubType,item2StackCount,item2EquipLoc,item2Texture,item2SellPrice=GetItemInfo(charitem)
   sml_dprint(db.Debug,"BestSeller","The equipped item for that slot is (ilevel:"..item2iLevel..")")
 end
 ---[EOF]
+
