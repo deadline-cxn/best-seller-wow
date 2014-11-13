@@ -1292,7 +1292,7 @@
 				local cb_init_fn = function()
 				local info;
 				info = {};
-				info.value = 0;
+				info.value = 0; 
 				info.text = smldb.ITEM_QUALITY[info.value];
 				info.func = function() cb_handle_bop_quality_dropdown(0);  end;
 				UIDropDownMenu_AddButton(info);
