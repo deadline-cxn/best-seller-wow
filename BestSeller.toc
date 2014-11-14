@@ -17,4 +17,4 @@ BestSellerHelp.lua
 BestSellerOptions.lua
 BestSellerStacker.lua
 BestSeller.xml
-## Version: 6.0.3.13
+## Version: 6.0.3.14
