@@ -9,7 +9,6 @@ iLastItemSold=0
 function bsOnLoad(self)
   SLASH_BestSeller1 = "/bestseller"
   SLASH_BestSeller2 = "/bs"
-  
   SlashCmdList["BestSeller"] = function(msg) bsCommandHandler(self,msg) end
   bsRegisterEvent("AUCTION_BIDDER_LIST_UPDATE")
   bsRegisterEvent("AUCTION_HOUSE_CLOSED")
