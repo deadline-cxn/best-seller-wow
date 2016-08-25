@@ -1,11 +1,12 @@
-## Interface: 60000
+## Interface: 70000
 ## Title: Best Seller
+## Version: 7.0.0.1
 ## Author: Smashed @ US Bladefist
 ## Notes: Sell your stuff the easy way
+## email: defectiveseth@gmail.com
+## SavedVariables: BestSellerDatabase
 ## DefaultState: Enabled
 ## LoadOnDemand: 0
-## SavedVariables: BestSellerDatabase
-## email: seth@parson.email
 ## Dependencies: smashed-library
 BestSellerFrame.xml
 BestSeller.lua
@@ -17,4 +18,3 @@ BestSellerHelp.lua
 BestSellerOptions.lua
 BestSellerStacker.lua
 BestSeller.xml
-## Version: 6.0.3.17

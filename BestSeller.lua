@@ -47,19 +47,19 @@ function bsGetEquippedItem(slot)
 end
 function bsSetDebugWindow()
   for i = 0,10 do
-	name, fontSize, r, g, b, alpha, shown, locked, docked, uninteractable =GetChatWindowInfo(i)
-	if(name~=nil) then
-	  if(name=="Best Seller") then
-		if(db) then
-		  db.bsChatFrame=getglobal("ChatFrame"..i)
-		end
-	  end
-	end
+    name, fontSize, r, g, b, alpha, shown, locked, docked, uninteractable =GetChatWindowInfo(i)
+    if(name~=nil) then
+      if(name=="Best Seller") then
+        if(db) then
+          db.bsChatFrame=getglobal("ChatFrame"..i)
+        end
+      end
+    end
   end
   if(db) then
-	if(db.bsChatFrame==nil) then
-	  db.bsChatFrame=DEFAULT_CHAT_FRAME
-	end
+    if(db.bsChatFrame==nil) then
+      db.bsChatFrame=DEFAULT_CHAT_FRAME
+    end
   end
 end
 function bsTable(tbl)
@@ -73,11 +73,11 @@ function bsTable(tbl)
   end
   if(string.find(tostring(x),"table")) then
 	for a,b in pairs(x) do
-	  if(string.find(tostring(b),"table:")) then
-		bsTable(b)
-	  else
-		sml_print("BestSeller","["..tostring(a).."] "..tostring(b))
-	  end
+      if(string.find(tostring(b),"table:")) then
+    	bsTable(b)
+      else
+    	sml_print("BestSeller","["..tostring(a).."] "..tostring(b))
+      end
 	end
   else
 	sml_print("BestSeller",tostring(x))
@@ -99,13 +99,13 @@ function bsTargetFaction()
 	local amtext=getglobal("BSTooltipTextLeft" .. floi)
 	sml_dprint(db.Debug,"BestSeller",amtext:GetText())
 	for factionIndex = 1, GetNumFactions() do
-	  name,description,standingId,bottomValue,topValue,earnedValue,atWarWith,canToggleAtWar,isHeader,isCollapsed,hasRep,isWatched,isChild=GetFactionInfo(factionIndex)
-	  if isHeader == nil then
-		if(string.find(amtext:GetText(),name)) then
-		  sml_dprint(db.Debug,"BestSeller","Target Faction: " .. name .. " ("..smldb.FACTION_STANDING[standingId]..")")
-		  return standingId
-		end
-	  end
+      name,description,standingId,bottomValue,topValue,earnedValue,atWarWith,canToggleAtWar,isHeader,isCollapsed,hasRep,isWatched,isChild=GetFactionInfo(factionIndex)
+      if isHeader == nil then
+    	if(string.find(amtext:GetText(),name)) then
+          sml_dprint(db.Debug,"BestSeller","Target Faction: " .. name .. " ("..smldb.FACTION_STANDING[standingId]..")")
+          return standingId
+    	end
+      end
 	end
   end
   return 0
