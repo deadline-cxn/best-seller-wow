@@ -110,7 +110,8 @@ function bsAutoSell()
 		if(itemSellPrice==nil) then
 		  itemSellPrice=0
 		end
-		sml_dprint(db.Debug,"BestSeller","ITEM:"..name.." -> type:"..itemType.." -> subtype:"..itemSubType.." -> "..itemSellPrice)
+		--sml_print("BestSeller","ITEM"..name.."  type["..itemType.."] subtype["..itemSubType.."] sellprice["..itemSellPrice.."] Rarity["..itemRarity.."]")
+        sml_dprint(db.Debug,"BestSeller","ITEM:"..name.." -> type:"..itemType.." -> subtype:"..itemSubType.." -> "..itemSellPrice)
 		if(itemSellPrice==0) then
 		  itemSellPrice=nil
 		end
@@ -282,11 +283,13 @@ function bsAutoSell()
 			end
 		  end
 		end
-		if  (itemType=="Trade Goods") or
+		if
+          (itemType=="Trade Goods") or
 		  (itemType=="Gem") or
 		  (itemType=="Quest") or
-		  (itemType=="Recipe") or
-		  (itemType=="Consumable") then
+		  (itemType=="Recipe") 
+		  --(itemType=="Consumable")
+          then
 		  d1msg=""
 		  d2msg=OFCC..itemName..JFCC.." (excluded item based on type)"..RFCC.." (not sold)"
 		  bDoSell=0

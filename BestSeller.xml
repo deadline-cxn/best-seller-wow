@@ -478,10 +478,10 @@
 		tinsert(UISpecialFrames,self:GetName());
 	  </OnLoad>
 	  <OnShow>
-		PlaySound("igCharacterInfoOpen");
+		--PlaySound("igCharacterInfoOpen");
 	  </OnShow>
 	  <OnHide>
-		PlaySound("igCharacterInfoClose");
+		--PlaySound("igCharacterInfoClose");
 	  </OnHide>
 	</Scripts>
   </Frame>

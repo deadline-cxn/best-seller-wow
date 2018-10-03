@@ -4,9 +4,9 @@ lastitembuyback=0
 function bsRegisterEvent(event) if(event ~= nil)then BSFrame:RegisterEvent(event) end end
 function bsOnEvent(self,event,...)
   bsSetDebugWindow()
-  local arg1,arg2 = ...
+  local arg1,arg2,arg3,arg4,arg5 = ...
   local nnames,nnum
-  narg=sml_nargify(arg1)
+  narg=sml_nargify(arg3)
   if(db)then if(db.DebugAllEvents)then sml_dprint(db.Debug,"BestSeller"," BEST SELLER EVENT ["..event.."]") end end
   if(event=="VARIABLES_LOADED")then
 	if(not BestSellerDatabase)then BestSellerDatabase={} end
@@ -64,7 +64,7 @@ function bsOnEvent(self,event,...)
     end
     if(db.AutoSell["SoulboundLow"]==nil)then db.AutoSell["SoulboundLow"]=2 end
     BSAMFramePanel1SoulboundLow:SetText(db.AutoSell["SoulboundLow"])
-    if(db.AutoSell["SoulboundHigh"]==nil)then db.AutoSell["SoulboundHigh"]=74 end
+    if(db.AutoSell["SoulboundHigh"]==nil)then db.AutoSell["SoulboundHigh"]=899 end
     BSAMFramePanel1SoulboundHigh:SetText(db.AutoSell["SoulboundHigh"])
     BSAMFramePanel1CheckSellBOPAutoDungeon:SetChecked(db.AutoSell["BOPDungeon"])
     BSAMFramePanel1CheckQuestHigh:SetChecked(db.QuestHigh)
