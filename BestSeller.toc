@@ -1,6 +1,6 @@
 ## Interface: 80000
 ## Title: Best Seller
-## Version: 8.0.0.0
+## Version: 8.0.0.1
 ## Author: Deadlidin (Area 52) / Smashed (Bladefist)
 ## Notes: Sell your stuff the easy way
 ## email: defectiveseth@gmail.com
@@ -8,10 +8,6 @@
 ## DefaultState: Enabled
 ## LoadOnDemand: 0
 ## Dependencies: smashed-library
-## X-Curse-Packaged-Version: 8.0.0.0
-## X-Curse-Project-Name: Best Seller
-## X-Curse-Project-ID: jelly
-## X-Curse-Repository-ID: wow/jelly/mainline
 BestSellerFrame.xml
 BestSeller.lua
 BestSellerAutoBuy.lua

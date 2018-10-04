@@ -1,3 +1,5 @@
+=== Latest version: 8.0.0.0 ====
+Updated for 8.0 patch
 === Latest version: 7.0.0.1 ====
 Updated for 7.0 patch
 === Latest version: 6.0.0.0 ====
